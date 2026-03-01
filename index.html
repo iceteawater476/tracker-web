@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Finals Tracker</title>
+<meta name="theme-color" content="#0e0f13">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Finals">
+<meta name="description" content="Track your finals syllabus and daily study time. Free, private, works offline.">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.svg">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -621,6 +629,13 @@ function deleteTopic(id) {
   if (!activeSubject) return;
   delete data.subjects[activeSubject].topics[id];
   save(); renderMain(); renderSubjects();
+}
+
+/* ════════════════════════════════════
+   SERVICE WORKER (offline support)
+════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
 /* ════════════════════════════════════
