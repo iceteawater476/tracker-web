@@ -47,21 +47,7 @@
   }
   .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em; }
   .logo span { color: var(--accent); }
-  .header-right { display: flex; align-items: center; gap: 14px; }
   .header-date { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; }
-  .theme-toggle {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 99px; width: 44px; height: 24px;
-    position: relative; cursor: pointer;
-    transition: background 0.25s, border-color 0.25s; flex-shrink: 0;
-  }
-  .theme-toggle::after {
-    content: ''; position: absolute; top: 3px; left: 3px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--muted); transition: transform 0.25s, background 0.25s;
-  }
-  html.light .theme-toggle { background: #e0e7ff; border-color: var(--accent); }
-  html.light .theme-toggle::after { transform: translateX(20px); background: var(--accent); }
 
   /* Layout */
   .main { display: grid; grid-template-columns: 330px 1fr; flex: 1; }
@@ -270,32 +256,13 @@
   .running { animation: pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
 
-/* ── Light theme ── */
-html.light {
-  --bg:      #f0f2f8;
-  --surface: #ffffff;
-  --surface2:#e8ebf4;
-  --border:  #d0d5e8;
-  --accent:  #6357e8;
-  --accent2: #e8335a;
-  --accent3: #0aad8a;
-  --text:    #1a1c2e;
-  --muted:   #7a7e99;
-  --done:    #0aad8a;
-  --revised: #6357e8;
-  --todo:    #e8335a;
-  --warn:    #d97706;
-}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div class="logo">finals<span>.</span>tracker</div>
-    <div class="header-right">
-      <div class="header-date" id="headerDate"></div>
-      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark"></button>
-    </div>
+    <div class="header-date" id="headerDate"></div>
   </header>
   <div class="main">
 
@@ -736,19 +703,6 @@ function deleteTopic(id) {
 }
 
 /* ════════════════════════════════════
-   THEME TOGGLE
-════════════════════════════════════ */
-function toggleTheme() {
-  const isLight = document.documentElement.classList.toggle('light');
-  localStorage.setItem('finalsTheme', isLight ? 'light' : 'dark');
-}
-(function() {
-  if (localStorage.getItem('finalsTheme') === 'light') {
-    document.documentElement.classList.add('light');
-  }
-})();
-
-/* ════════════════════════════════════
    INIT
 ════════════════════════════════════ */
 document.getElementById('headerDate').textContent =
@@ -761,4 +715,3 @@ swRestoreState();
 </script>
 </body>
 </html>
-
