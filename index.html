@@ -256,13 +256,49 @@
   .running { animation: pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
 
+
+/* ── Light theme ── */
+html.light {
+  --bg:      #f0f2f8;
+  --surface: #ffffff;
+  --surface2:#e8ebf4;
+  --border:  #d0d5e8;
+  --accent:  #6357e8;
+  --accent2: #e8335a;
+  --accent3: #0aad8a;
+  --text:    #1a1c2e;
+  --muted:   #7a7e99;
+  --done:    #0aad8a;
+  --revised: #6357e8;
+  --todo:    #e8335a;
+  --warn:    #d97706;
+}
+
+/* ── Theme toggle pill ── */
+.header-right { display: flex; align-items: center; gap: 14px; }
+.theme-toggle {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 99px; width: 44px; height: 24px;
+  position: relative; cursor: pointer;
+  transition: background 0.25s, border-color 0.25s; flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--muted); transition: transform 0.25s, background 0.25s;
+}
+html.light .theme-toggle { background: #e0e7ff; border-color: var(--accent); }
+html.light .theme-toggle::after { transform: translateX(20px); background: var(--accent); }
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div class="logo">finals<span>.</span>tracker</div>
-    <div class="header-date" id="headerDate"></div>
+    <div class="header-right">
+      <div class="header-date" id="headerDate"></div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark"></button>
+    </div>
   </header>
   <div class="main">
 
@@ -325,6 +361,7 @@
 </div>
 
 <script>
+
 /* ════════════════════════════════════
    DATA
 ════════════════════════════════════ */
@@ -333,36 +370,68 @@ let activeSubject = null;
 let historyOpen = false;
 
 /* ════════════════════════════════════
-   STOPWATCH — bulletproof persistence
-   
-   Strategy: store the timestamp when the timer STARTED
-   plus any seconds already accumulated. On every page
-   load, recalculate elapsed = accumulated + (now - startedAt).
-   This survives force-quit, crashes, and tab closes because
-   we never rely on catching the close event.
+   UTILS
 ════════════════════════════════════ */
-let swRunning  = false;
-let swSec      = 0;       // accumulated seconds (paused total)
-let swStartedAt = null;   // Date.now() when last started
-let swTimer    = null;
+function save() { localStorage.setItem('finalsTracker', JSON.stringify(data)); }
+function pad(n) { return String(n).padStart(2,'0'); }
+function todayKey() {
+  const d = new Date();
+  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+function fmt(sec) {
+  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
+  if (h) return h+'h '+m+'m';
+  if (m) return m+'m '+s+'s';
+  return s+'s';
+}
+function fmtShort(sec) {
+  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60);
+  if (h) return h+'h'+(m?' '+m+'m':'');
+  return m+'m';
+}
+function fmtDate(key) {
+  const parts = key.split('-').map(Number);
+  return new Date(parts[0],parts[1]-1,parts[2]).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+function toast(msg) {
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2600);
+}
+function esc(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function h(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* ── Persist ── */
+/* ════════════════════════════════════
+   STOPWATCH — timestamp persistence
+   swSec       = accumulated seconds while paused
+   swStartedAt = Date.now() when started (null when paused)
+
+   Key fix: fold elapsed into swSec and set swStartedAt=null
+   BEFORE calling swSave() on pause, so swSave() always sees
+   the correct swRunning state.
+
+   On restore: swStartedAt set → was running → add elapsed
+               swStartedAt empty → was paused → restore as-is
+════════════════════════════════════ */
+let swRunning   = false;
+let swSec       = 0;
+let swStartedAt = null;
+let swTimer     = null;
+
 function swSave() {
-  localStorage.setItem('sw_sec',       swSec);
-  localStorage.setItem('sw_startedAt', swRunning ? swStartedAt : '');
+  localStorage.setItem('sw_sec', String(swSec));
+  localStorage.setItem('sw_startedAt', (swRunning && swStartedAt) ? String(swStartedAt) : '');
 }
 
-/* ── Restore on load ── */
 function swRestoreState() {
-  const savedSec  = parseInt(localStorage.getItem('sw_sec') || '0', 10);
-  const savedStart = parseInt(localStorage.getItem('sw_startedAt') || '0', 10);
+  const rawStart   = localStorage.getItem('sw_startedAt') || '';
+  const savedSec   = parseInt(localStorage.getItem('sw_sec') || '0', 10);
+  const savedStart = rawStart ? parseInt(rawStart, 10) : 0;
 
-  if (savedStart) {
-    // Was running when page closed — add elapsed time since then
-    const elapsed = Math.floor((Date.now() - savedStart) / 1000);
-    swSec = savedSec + elapsed;
-    // Restore as PAUSED — user decides to resume
+  if (savedStart && !isNaN(savedStart) && savedStart > 0) {
+    /* Was running when closed — add elapsed, restore as PAUSED */
+    swSec = savedSec + Math.floor((Date.now() - savedStart) / 1000);
     localStorage.setItem('sw_startedAt', '');
+    localStorage.setItem('sw_sec', String(swSec));
   } else {
     swSec = savedSec;
   }
@@ -373,49 +442,36 @@ function swRestoreState() {
   }
 }
 
-/* ── Tick ── */
-function swTick() {
-  swSec++;
-  renderSW();
-  // No need to save every tick — startedAt handles it
-}
-
-/* ── Display ── */
 function renderSW() {
-  const h = Math.floor(swSec / 3600);
-  const m = Math.floor((swSec % 3600) / 60);
-  const s = swSec % 60;
+  const h = Math.floor(swSec/3600), m = Math.floor((swSec%3600)/60), s = swSec%60;
   document.getElementById('swDisplay').textContent = pad(h)+':'+pad(m)+':'+pad(s);
 }
 
-function pad(n) { return String(n).padStart(2, '0'); }
+function swTick() { swSec++; renderSW(); }
 
-/* ── Start / Pause ── */
 document.getElementById('swStartStop').onclick = function() {
   if (!swRunning) {
-    // START
     swRunning   = true;
     swStartedAt = Date.now();
     swTimer     = setInterval(swTick, 1000);
     this.textContent = 'PAUSE';
-    this.classList.replace('primary', 'danger');
+    this.classList.replace('primary','danger');
     document.getElementById('swDisplay').classList.add('running');
-    swSave(); // persist startedAt immediately
+    swSave(); /* swRunning=true here → saves startedAt correctly */
   } else {
-    // PAUSE — fold running time into swSec
-    swRunning = false;
-    clearInterval(swTimer); swTimer = null;
+    /* Fold time in and clear startedAt BEFORE flipping swRunning */
     swSec += Math.floor((Date.now() - swStartedAt) / 1000);
     swStartedAt = null;
+    swRunning = false;
+    clearInterval(swTimer); swTimer = null;
     renderSW();
-    swSave();
+    swSave(); /* swRunning=false here → saves empty startedAt correctly */
     this.textContent = 'START';
-    this.classList.replace('danger', 'primary');
+    this.classList.replace('danger','primary');
     document.getElementById('swDisplay').classList.remove('running');
   }
 };
 
-/* ── Reset ── */
 document.getElementById('swReset').onclick = function() {
   swRunning = false;
   clearInterval(swTimer); swTimer = null;
@@ -427,25 +483,21 @@ document.getElementById('swReset').onclick = function() {
   document.getElementById('swDisplay').classList.remove('running');
 };
 
-/* ── Log Session ── */
 document.getElementById('swLog').onclick = function() {
-  // Fold in any currently-running time
   const total = swRunning
     ? swSec + Math.floor((Date.now() - swStartedAt) / 1000)
     : swSec;
   if (total < 5) { toast('Start the stopwatch first!'); return; }
   const k = todayKey();
-  data.dailyLog[k] = (data.dailyLog[k] || 0) + total;
+  data.dailyLog[k] = (data.dailyLog[k]||0) + total;
   save(); renderDailyLog();
-  toast('✓ Logged ' + fmt(total) + " to today");
+  toast('✓ Logged ' + fmt(total) + ' to today');
   document.getElementById('swReset').click();
 };
 
-/* ── Sync swSec when tab is hidden (belt-and-suspenders) ── */
+/* On tab hide: fold elapsed in, reset swStartedAt to now */
 document.addEventListener('visibilitychange', () => {
   if (document.hidden && swRunning) {
-    // Fold elapsed into swSec and update startedAt to now
-    // so if we never come back, restoreState still gets the right value
     const now = Date.now();
     swSec += Math.floor((now - swStartedAt) / 1000);
     swStartedAt = now;
@@ -454,42 +506,12 @@ document.addEventListener('visibilitychange', () => {
 });
 
 /* ════════════════════════════════════
-   UTILS
-════════════════════════════════════ */
-function todayKey() {
-  const d = new Date();
-  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-}
-function fmt(sec) {
-  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60;
-  if(h) return h+'h '+m+'m';
-  if(m) return m+'m '+s+'s';
-  return s+'s';
-}
-function fmtShort(sec) {
-  const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60);
-  if(h) return h+'h'+(m?' '+m+'m':'');
-  return m+'m';
-}
-function fmtDate(key) {
-  const [y,mo,d]=key.split('-').map(Number);
-  return new Date(y,mo-1,d).toLocaleDateString('en-US',{month:'short',day:'numeric'});
-}
-function save() { localStorage.setItem('finalsTracker', JSON.stringify(data)); }
-function toast(msg) {
-  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
-  document.body.appendChild(t); setTimeout(()=>t.remove(),2600);
-}
-function esc(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
-function h(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-/* ════════════════════════════════════
    HISTORY TOGGLE
 ════════════════════════════════════ */
 function toggleHistory() {
   historyOpen = !historyOpen;
-  document.getElementById('historyList').className = 'history-list ' + (historyOpen?'expanded':'collapsed');
-  document.getElementById('toggleArrow').className = 'toggle-arrow ' + (historyOpen?'open':'');
+  document.getElementById('historyList').className = 'history-list '+(historyOpen?'expanded':'collapsed');
+  document.getElementById('toggleArrow').className = 'toggle-arrow '+(historyOpen?'open':'');
 }
 
 /* ════════════════════════════════════
@@ -510,11 +532,10 @@ function renderDailyLog() {
     chart.innerHTML='<div style="color:var(--muted);font-size:0.75rem;padding:4px 0;">No sessions logged yet.</div>';
     return;
   }
-
   chart.innerHTML = all.map(([key,sec])=>{
     const isToday = key===today;
-    const pct = Math.max(3, Math.round((sec/maxSec)*100));
-    const color = isToday ? 'var(--accent)' : 'var(--accent3)';
+    const pct = Math.max(3,Math.round((sec/maxSec)*100));
+    const color = isToday?'var(--accent)':'var(--accent3)';
     return `<div class="chart-row">
       <div class="chart-date ${isToday?'is-today':''}">${isToday?'Today':fmtDate(key)}</div>
       <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%;background:${color}"></div></div>
@@ -597,12 +618,14 @@ function renderMain() {
   const pctR = s.total ? Math.round(s.revised/s.total*100) : 0;
 
   const ringC = 2*Math.PI*28;
-  const ringOff = ringC - (pct/100)*ringC;
+  const ringOff = ringC-(pct/100)*ringC;
   const ringColor = pct<40?'var(--todo)':pct<80?'var(--warn)':'var(--done)';
 
-  const todoList    = Object.entries(topics).filter(([,t])=>!t.status||t.status==='todo');
-  const doneList    = Object.entries(topics).filter(([,t])=>t.status==='done');
-  const revisedList = Object.entries(topics).filter(([,t])=>t.status==='revised');
+  /* Sort each column — most recently updated first */
+  const byRecent = (a,b) => (b[1].updatedAt||0)-(a[1].updatedAt||0);
+  const todoList    = Object.entries(topics).filter(([,t])=>!t.status||t.status==='todo').sort(byRecent);
+  const doneList    = Object.entries(topics).filter(([,t])=>t.status==='done').sort(byRecent);
+  const revisedList = Object.entries(topics).filter(([,t])=>t.status==='revised').sort(byRecent);
 
   el.innerHTML = `
     <div class="content-header">
@@ -685,14 +708,16 @@ function addTopic() {
   if (!inp) return;
   const name = inp.value.trim();
   if (!name || !activeSubject) return;
-  data.subjects[activeSubject].topics['t_'+Date.now()] = { name, status:'todo' };
+  /* updatedAt so new topics sort to top */
+  data.subjects[activeSubject].topics['t_'+Date.now()] = { name, status:'todo', updatedAt:Date.now() };
   save(); inp.value='';
   renderMain(); renderSubjects();
 }
 
 function setStatus(id, status) {
   if (!activeSubject || !data.subjects[activeSubject].topics[id]) return;
-  data.subjects[activeSubject].topics[id].status = status;
+  data.subjects[activeSubject].topics[id].status    = status;
+  data.subjects[activeSubject].topics[id].updatedAt = Date.now();
   save(); renderMain(); renderSubjects();
 }
 
@@ -701,6 +726,19 @@ function deleteTopic(id) {
   delete data.subjects[activeSubject].topics[id];
   save(); renderMain(); renderSubjects();
 }
+
+/* ════════════════════════════════════
+   THEME TOGGLE
+════════════════════════════════════ */
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('finalsTheme', isLight ? 'light' : 'dark');
+}
+(function() {
+  if (localStorage.getItem('finalsTheme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+})();
 
 /* ════════════════════════════════════
    INIT
@@ -712,6 +750,7 @@ renderSubjects();
 renderMain();
 renderDailyLog();
 swRestoreState();
+
 </script>
 </body>
 </html>
