@@ -7,11 +7,15 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="gfonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" media="print" onload="this.media='all'">
 <title>Finals Tracker</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwZTBmMTMiLz4KICA8dGV4dCB4PSIzMiIgeT0iNDIiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjaywgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2U4ZTlmMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9Ii0xIj5maW5hbHM8dHNwYW4gZmlsbD0iIzdjNmFmZiI+LjwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4=">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwZTBmMTMiLz4KICA8dGV4dCB4PSIzMiIgeT0iNDIiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjaywgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2U4ZTlmMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9Ii0xIj5maW5hbHM8dHNwYW4gZmlsbD0iIzdjNmFmZiI+LjwvdHNwYW4+PC90ZXh0Pgo8L3N2Zz4=">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
 <style>
+
 /* ══════════════════════════════════════
    THEME VARIABLES
 ══════════════════════════════════════ */
@@ -84,7 +88,7 @@ html, body { height:100%; overflow:hidden; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'DM Mono', monospace;
+  font-family: 'DM Mono', 'Cascadia Code', 'Fira Code', 'SF Mono', 'Consolas', 'Liberation Mono', monospace;
   overscroll-behavior: none;
   transition: background 0.3s, color 0.3s;
 }
@@ -162,7 +166,7 @@ body {
   z-index: 100;
 }
 .logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Syne', 'Trebuchet MS', 'Gill Sans', system-ui, sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.03em;
@@ -199,7 +203,7 @@ body {
   gap:3px; padding:9px 2px;
   background:none; border:none;
   color:var(--muted); cursor:pointer;
-  font-family:'DM Mono',monospace;
+  font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace;
   font-size:0.52rem; text-transform:uppercase;
   letter-spacing:0.07em; transition:color 0.15s;
   position:relative;
@@ -226,7 +230,7 @@ body {
   padding: 9px 12px; border-radius:8px;
   background:none; border:none;
   color:var(--muted); cursor:pointer;
-  font-family:'DM Mono',monospace;
+  font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace;
   font-size:0.75rem; text-transform:uppercase;
   letter-spacing:0.08em; transition:all 0.15s;
   text-align:left;
@@ -254,7 +258,7 @@ body {
 input[type="text"], input[type="number"], input[type="date"] {
   background:var(--surface2); border:1px solid var(--border);
   color:var(--text);
-  font-family:'DM Mono',monospace; font-size:0.82rem;
+  font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace; font-size:0.82rem;
   padding:10px 12px; border-radius:10px; flex:1; outline:none;
   transition:border-color 0.15s; -webkit-appearance:none;
   color-scheme: dark;
@@ -263,7 +267,7 @@ input:focus { border-color:var(--accent); }
 input::placeholder { color:var(--muted); }
 .btn {
   background:var(--surface2); border:1px solid var(--border);
-  color:var(--text); font-family:'DM Mono',monospace; font-size:0.75rem;
+  color:var(--text); font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace; font-size:0.75rem;
   padding:10px 16px; border-radius:10px; cursor:pointer;
   transition:all 0.15s; text-transform:uppercase; letter-spacing:0.08em;
   white-space:nowrap; -webkit-appearance:none;
@@ -305,7 +309,7 @@ input::placeholder { color:var(--muted); }
 .ring-svg { transform:rotate(-90deg); }
 .ring-bg { fill:none; stroke:var(--border); stroke-width:6; }
 .ring-fill { fill:none; stroke-width:6; stroke-linecap:round; transition:stroke-dashoffset 0.5s cubic-bezier(.4,0,.2,1); }
-.ring-lbl { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700; }
+.ring-lbl { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-size:1rem;font-weight:700; }
 
 /* ══════════════════════════════════════
    MODAL
@@ -326,13 +330,13 @@ input::placeholder { color:var(--muted); }
   width:100%; max-height:90vh; overflow-y:auto;
 }
 .modal-handle { width:36px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 16px; }
-.modal-title { font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:16px; }
+.modal-title { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:16px; }
 
 /* ══════════════════════════════════════
    STOPWATCH
 ══════════════════════════════════════ */
 .sw-display {
-  font-family:'Syne',sans-serif; font-size:3rem; font-weight:700;
+  font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif; font-size:3rem; font-weight:700;
   letter-spacing:-0.02em; color:var(--accent3); line-height:1;
   margin-bottom:4px;
 }
@@ -342,13 +346,13 @@ input::placeholder { color:var(--muted); }
 
 /* Away modal */
 .away-info { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; margin-bottom:14px; }
-.away-time { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:700; color:var(--warn); }
+.away-time { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif; font-size:1.8rem; font-weight:700; color:var(--warn); }
 .away-label { font-size:0.7rem; color:var(--muted); margin-bottom:4px; }
 
 /* ══════════════════════════════════════
    TIMER / LOG
 ══════════════════════════════════════ */
-.today-big { font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1; }
+.today-big { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1; }
 .today-bar { height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 4px; }
 .today-fill { height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));border-radius:99px;transition:width 0.5s ease; }
 .log-input-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
@@ -377,7 +381,7 @@ input::placeholder { color:var(--muted); }
 .subject-card:hover { border-color:var(--accent); }
 .subject-card.active { border-color:var(--accent); background:rgba(124,106,255,0.08); }
 .subj-body { flex:1; min-width:0; }
-.subj-name { font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:2px; }
+.subj-name { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:2px; }
 .subj-meta { font-size:0.65rem;color:var(--muted); }
 .subj-del { background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.85rem;padding:2px;transition:color 0.15s;flex-shrink:0; }
 .subj-del:hover { color:var(--accent2); }
@@ -407,7 +411,7 @@ input::placeholder { color:var(--muted); }
   font-size:0.62rem;padding:3px 9px;border-radius:99px;
   border:1px solid var(--border);background:none;
   color:var(--muted);cursor:pointer;
-  font-family:'DM Mono',monospace;
+  font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace;
   text-transform:uppercase;letter-spacing:0.07em;transition:all 0.15s;
 }
 .t-btn:hover { border-color:var(--text);color:var(--text); }
@@ -418,7 +422,7 @@ input::placeholder { color:var(--muted); }
 .back-btn {
   display:inline-flex;align-items:center;gap:6px;
   background:none;border:none;color:var(--muted);
-  cursor:pointer;font-family:'DM Mono',monospace;
+  cursor:pointer;font-family:'DM Mono','Cascadia Code','Fira Code','SF Mono','Consolas','Liberation Mono',monospace;
   font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;
   padding:0 0 14px;transition:color 0.15s;
 }
@@ -438,9 +442,9 @@ input::placeholder { color:var(--muted); }
   border-radius:12px; padding:14px; margin-bottom:10px;
 }
 .grade-subj-header { display:flex;align-items:center;gap:10px;margin-bottom:10px; }
-.grade-subj-name { font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;flex:1; }
+.grade-subj-name { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-weight:700;font-size:0.95rem;flex:1; }
 .grade-badge {
-  font-family:'Syne',sans-serif; font-weight:800; font-size:1rem;
+  font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif; font-weight:800; font-size:1rem;
   padding:4px 12px; border-radius:8px; border:2px solid;
 }
 .grade-marks { font-size:0.72rem;color:var(--muted);margin-bottom:8px; }
@@ -471,7 +475,7 @@ input::placeholder { color:var(--muted); }
   border-radius:20px 20px 0 0;padding:24px 20px 36px;
   width:100%;max-height:85vh;overflow-y:auto;
 }
-.settings-title { font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:20px; }
+.settings-title { font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:20px; }
 .settings-section { margin-bottom:22px; }
 .settings-section-label { font-size:0.62rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);margin-bottom:10px; }
 .theme-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:8px; }
@@ -504,93 +508,87 @@ input::placeholder { color:var(--muted); }
 
 
 /* ══════════════════════════════════════
-   GRADE GRAPH
+   GRADE GRAPH — single bar
 ══════════════════════════════════════ */
-.grade-graph {
+.grade-marks-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; color: var(--muted);
+  margin-bottom: 14px; flex-wrap: wrap;
+}
+.grade-marks-row strong { font-size: 1rem; }
+.grade-sep { color: var(--border); }
+
+.gz-wrap { margin-bottom: 6px; }
+
+.gz-bar {
   position: relative;
-  margin: 14px 0 4px;
-  padding-top: 20px; /* space for needle label */
-}
-.grade-graph-needle {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  z-index: 2;
-  pointer-events: none;
-}
-.grade-graph-needle-line {
-  width: 2px;
-  height: calc(100% - 18px);
-  background: var(--accent3);
-  margin: 18px auto 0;
-  border-radius: 99px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-}
-.grade-graph-needle-label {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.65rem;
-  white-space: nowrap;
-  transform: translateX(-50%);
-  position: relative;
-  left: 1px;
-}
-.grade-bar-row {
-  display: grid;
-  grid-template-columns: 44px 1fr 100px;
-  align-items: center;
-  gap: 8px;
-  padding: 3px 0;
-  border-radius: 6px;
-  transition: background 0.15s;
-}
-.grade-bar-row:hover { background: rgba(255,255,255,0.03); }
-.grade-bar-current { background: rgba(106,255,212,0.05) !important; }
-.grade-bar-label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0;
-  flex-shrink: 0;
-}
-.grade-bar-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.78rem; }
-.grade-bar-gpa  { font-size:0.55rem; color:var(--muted); }
-.grade-bar-track {
-  height: 14px;
+  height: 22px;
   background: var(--surface2);
   border-radius: 99px;
-  position: relative;
   overflow: visible;
+  margin-bottom: 22px;
 }
-.grade-bar-fill {
-  height: 100%;
-  border-radius: 99px;
+
+.gz-segment {
   position: absolute;
-  left: 0; top: 0;
-  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  top: 0; height: 100%;
+  border-radius: 0;
+  transition: opacity 0.3s;
 }
-.grade-bar-marker {
+/* Round the first and last segment */
+.gz-segment:first-child { border-radius: 99px 0 0 99px; }
+.gz-segment:last-child  { border-radius: 0 99px 99px 0; }
+.gz-active { opacity: 1 !important; }
+
+.gz-marker {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 10px; height: 10px;
+  z-index: 10;
+}
+.gz-marker-dot {
+  width: 16px; height: 16px;
   border-radius: 50%;
-  background: var(--accent3);
   border: 2px solid var(--bg);
-  box-shadow: 0 0 0 2px var(--accent3);
-  z-index: 3;
+  margin: 0 auto;
 }
-.grade-bar-info {
-  font-size: 0.62rem;
+.gz-marker-label {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Syne', 'Trebuchet MS', 'Gill Sans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.65rem;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-@media(min-width:768px) {
-  .grade-bar-row { grid-template-columns: 48px 1fr 120px; }
+
+.gz-ticks {
+  position: relative;
+  height: 28px;
+}
+.gz-tick {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.gz-tick-line {
+  width: 1px; height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+}
+.gz-tick-label {
+  font-size: 0.58rem;
+  color: var(--muted);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.gz-tick-active {
+  font-weight: 700;
+  font-family: 'Syne', 'Trebuchet MS', 'Gill Sans', system-ui, sans-serif;
 }
 
 /* scrollbar */
@@ -842,7 +840,7 @@ input::placeholder { color:var(--muted); }
 <div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
   <div class="settings-panel">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem">Settings</div>
+      <div style="font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-weight:800;font-size:1.15rem">Settings</div>
       <button class="btn sm" onclick="closeSettings()">✕ Close</button>
     </div>
 
@@ -1205,11 +1203,11 @@ function renderHistory() {
   const summaryHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
       <div class="card" style="text-align:center;padding:12px">
-        <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent)">${fmtHM(weekSec)||'0m'}</div>
+        <div style="font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent)">${fmtHM(weekSec)||'0m'}</div>
         <div style="font-size:0.62rem;color:var(--muted);margin-top:2px">This week</div>
       </div>
       <div class="card" style="text-align:center;padding:12px">
-        <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent3)">${fmtHM(totalSec)||'0m'}</div>
+        <div style="font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent3)">${fmtHM(totalSec)||'0m'}</div>
         <div style="font-size:0.62rem;color:var(--muted);margin-top:2px">All time</div>
       </div>
     </div>`;
@@ -1392,7 +1390,7 @@ function renderTopics() {
   const headerHTML = `
     <div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
       <div style="flex:1;min-width:0">
-        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:6px">${h(activeSubject)}</div>
+        <div style="font-family:'Syne','Trebuchet MS','Gill Sans',system-ui,sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:6px">${h(activeSubject)}</div>
         <div class="pills">
           <span class="pill pill-todo">${s.todo} to do</span>
           <span class="pill pill-done">${s.done} done</span>
@@ -1496,44 +1494,49 @@ function renderGrades(prefix) {
     return;
   }
 
-  el.innerHTML = ids.map(id=>{
+  el.innerHTML = ids.map(id => {
     const g        = data.grades[id];
-    const pct      = (g.obtained/g.total)*100;
+    const pct      = (g.obtained / g.total) * 100;
     const curGrade = getGrade(pct);
     const col      = gradeColor(curGrade);
 
-    // Grade bar graph — each grade is a horizontal bar showing % threshold
-    // We render from highest grade (A+) to lowest (F)
-    // The bar width = that grade's min% threshold
-    // A fill marker shows where the student currently sits
-    const graphBars = gradingSystem.map((gs, i) => {
-      const isCur     = gs.grade === curGrade.grade;
-      const isAchieved= pct >= gs.min;
-      const isNext    = !isAchieved && gradingSystem[i-1] && pct >= (gradingSystem[i] ? gradingSystem[i].min : 0) - 0.01 && !isCur && gradingSystem.indexOf(gs) === gradingSystem.indexOf(curGrade) - 1;
-      const barCol    = isAchieved ? gradeColor(gs) : 'var(--border)';
-      const textCol   = isAchieved ? gradeColor(gs) : 'var(--muted)';
-      const needed    = (gs.min/100)*g.total;
-      const diff      = needed - g.obtained;
-      const label     = isCur
-        ? '← you are here'
-        : (isAchieved ? '✓' : (diff > 0 ? '+'+diff.toFixed(1)+' marks' : ''));
-      const bgOpacity = isCur ? '0.18' : (isAchieved ? '0.08' : '0.03');
+    // Build coloured zone segments on a single bar (low → high = left → right)
+    // gradingSystem is ordered A+ → F (high to low), so reverse for bar segments
+    const reversed = [...gradingSystem].reverse(); // F → A+
 
-      return `<div class="grade-bar-row ${isCur?'grade-bar-current':''}" style="--row-col:${gradeColor(gs)}">
-        <div class="grade-bar-label" style="color:${textCol}">
-          <span class="grade-bar-name">${gs.grade}</span>
-          <span class="grade-bar-gpa">${gs.gpa.toFixed(2)}</span>
-        </div>
-        <div class="grade-bar-track">
-          <div class="grade-bar-fill" style="width:${gs.min}%;background:${barCol};opacity:${isAchieved?1:0.3}"></div>
-          ${isCur ? `<div class="grade-bar-marker" style="left:${Math.min(pct,100)}%"></div>` : ''}
-        </div>
-        <div class="grade-bar-info" style="color:${textCol}">${label}</div>
+    // Each segment spans from its own min% to the next grade's min%
+    const segments = reversed.map((gs, i) => {
+      const segStart = gs.min;
+      const segEnd   = reversed[i+1] ? reversed[i+1].min : 100;
+      const width    = segEnd - segStart;
+      if (width <= 0) return '';
+      const segCol = gradeColor(gs);
+      const isCur  = gs.grade === curGrade.grade;
+      return `<div class="gz-segment ${isCur ? 'gz-active' : ''}"
+        style="left:${segStart}%;width:${width}%;background:${segCol};opacity:${isCur ? 1 : 0.22}"
+        title="${gs.grade} (${gs.min}%+)"></div>`;
+    }).join('');
+
+    // Grade label ticks below the bar
+    const ticks = gradingSystem.map(gs => {
+      if (gs.grade === 'F') return ''; // skip F tick at 0
+      const isCur = gs.grade === curGrade.grade;
+      return `<div class="gz-tick" style="left:${gs.min}%">
+        <div class="gz-tick-line"></div>
+        <div class="gz-tick-label ${isCur ? 'gz-tick-active' : ''}"
+             style="${isCur ? 'color:'+gradeColor(gs) : ''}">${gs.grade}</div>
       </div>`;
     }).join('');
 
-    // Needle line showing current %
-    const needleLeft = Math.min(pct, 100);
+    // Marker: where the student is right now
+    const markerPct = Math.min(pct, 100);
+    const nextGrade = gradingSystem[gradingSystem.indexOf(curGrade) - 1];
+    const marksToNext = nextGrade
+      ? ((nextGrade.min / 100) * g.total - g.obtained).toFixed(1)
+      : null;
+    const nextMsg = nextGrade
+      ? `<span style="color:var(--warn)">+${marksToNext} marks to ${nextGrade.grade}</span>`
+      : `<span style="color:var(--done)">Top grade! 🎉</span>`;
 
     return `<div class="grade-subject-card">
       <div class="grade-subj-header">
@@ -1541,17 +1544,30 @@ function renderGrades(prefix) {
         <div class="grade-badge" style="color:${col};border-color:${col}">${curGrade.grade} · ${curGrade.gpa.toFixed(2)}</div>
         <button class="grade-del" onclick="deleteGradeSubject('${id}')">✕</button>
       </div>
-      <div class="grade-marks">${g.obtained} / ${g.total} marks · <strong style="color:${col}">${pct.toFixed(1)}%</strong></div>
 
-      <div class="grade-graph">
-        <div class="grade-graph-needle" style="left:${needleLeft}%">
-          <div class="grade-graph-needle-line"></div>
-          <div class="grade-graph-needle-label" style="color:${col}">${pct.toFixed(1)}%</div>
-        </div>
-        ${graphBars}
+      <div class="grade-marks-row">
+        <span>${g.obtained} / ${g.total} marks</span>
+        <strong style="color:${col}">${pct.toFixed(1)}%</strong>
+        <span class="grade-sep">·</span>
+        ${nextMsg}
       </div>
 
-      <div class="grade-edit-row" style="margin-top:12px">
+      <!-- Single bar graph -->
+      <div class="gz-wrap">
+        <!-- Coloured zone segments -->
+        <div class="gz-bar">
+          ${segments}
+          <!-- Student marker -->
+          <div class="gz-marker" style="left:${markerPct}%">
+            <div class="gz-marker-dot" style="background:${col};box-shadow:0 0 0 3px ${col}33"></div>
+            <div class="gz-marker-label" style="color:${col}">${pct.toFixed(1)}%</div>
+          </div>
+        </div>
+        <!-- Tick labels -->
+        <div class="gz-ticks">${ticks}</div>
+      </div>
+
+      <div class="grade-edit-row" style="margin-top:14px">
         <input type="number" placeholder="Update marks obtained" id="ge-obt-${id}" min="0" max="${g.total}" step="0.5" />
         <button class="btn sm primary" onclick="updateGradeMarks('${id}')">Update</button>
       </div>
@@ -1676,3 +1692,4 @@ document.getElementById('mobNewSubject').addEventListener('keydown',e=>{ if(e.ke
 </script>
 </body>
 </html>
+
