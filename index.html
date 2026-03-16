@@ -75,9 +75,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;over
 #installBanner .ib-btns{display:flex;gap:6px}
 
 .bottom-nav{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 1px;background:none;border:none;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:.4rem;text-transform:uppercase;letter-spacing:.05em;transition:color .15s;position:relative}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:9px 2px;background:none;border:none;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:.45rem;text-transform:uppercase;letter-spacing:.06em;transition:color .15s;position:relative}
 .nav-btn.active{color:var(--accent)}
-.nav-btn .nav-icon{font-size:1rem;line-height:1}
+.nav-btn .nav-icon{font-size:1.1rem;line-height:1}
 .nav-btn::after{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--accent);border-radius:0 0 3px 3px;transform:scaleX(0);transition:transform .2s}
 .nav-btn.active::after{transform:scaleX(1)}
 
@@ -256,63 +256,7 @@ textarea::placeholder{color:var(--muted)}
 .acct-badge{font-size:.55rem;padding:2px 8px;border-radius:99px;background:rgba(106,255,212,.15);color:var(--done);border:1px solid rgba(106,255,212,.3);margin-top:3px;display:inline-block}
 .sync-status{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--border);margin-bottom:10px}
 
-/* ── Pomodoro ── */
-.pomo-wrap{text-align:center;padding:8px 0}
-.pomo-mode-badge{display:inline-block;font-size:.6rem;text-transform:uppercase;letter-spacing:.14em;padding:3px 10px;border-radius:99px;margin-bottom:10px;font-weight:600}
-.pomo-clock{font-family:'Syne',sans-serif;font-size:4rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px;transition:color .3s}
-.pomo-ring-wrap{position:relative;width:180px;height:180px;margin:0 auto 16px}
-.pomo-ring-bg{fill:none;stroke:var(--border);stroke-width:10}
-.pomo-ring-fill{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .8s ease,stroke .3s}
-.pomo-ring-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;text-anchor:middle;dominant-baseline:central;fill:var(--text)}
-.pomo-ring-sub{font-size:.5rem;text-anchor:middle;dominant-baseline:central;text-transform:uppercase;letter-spacing:.1em;fill:var(--muted)}
-.pomo-btns{display:flex;gap:10px;justify-content:center;margin-bottom:14px}
-.pomo-btns .btn{min-width:80px}
-.pomo-sessions{font-size:.68rem;color:var(--muted);margin-bottom:6px}
-.pomo-progress-track{height:4px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:20px}
-.pomo-progress-fill{height:100%;border-radius:99px;transition:width .8s ease,background .3s}
-/* Pomodoro lockout overlay */
-.pomo-lock{position:fixed;inset:0;z-index:800;pointer-events:none}
-.pomo-lock.active{pointer-events:all}
-.pomo-lock-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);opacity:0;transition:opacity .3s}
-.pomo-lock.active .pomo-lock-backdrop{opacity:1}
-.pomo-lock-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 28px 22px;text-align:center;width:280px;box-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;transition:opacity .3s,transform .3s;transform:translate(-50%,-46%)}
-.pomo-lock.active .pomo-lock-msg{opacity:1;transform:translate(-50%,-50%)}
-.pomo-lock-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:6px}
-.pomo-lock-sub{font-size:.72rem;color:var(--muted);margin-bottom:16px;line-height:1.5}
-.pomo-lock-timer{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:16px;transition:color .3s}
-.pomo-lock-ai-btn{display:block;width:100%;background:var(--accent);border:none;color:#fff;border-radius:10px;padding:11px;font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;cursor:pointer;margin-bottom:8px;transition:opacity .15s;text-transform:uppercase;letter-spacing:.08em}
-.pomo-lock-ai-btn:hover{opacity:.85}
-.pomo-lock-stop{background:none;border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:8px 16px;font-family:'DM Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .15s}
-.pomo-lock-stop:hover{border-color:var(--accent2);color:var(--accent2)}
-/* ── AI Tab nav ── */
-.snav-ai{color:var(--accent)!important;border-left:2px solid var(--accent);padding-left:10px;margin-top:4px}
-.snav-ai:hover{background:var(--surface2)!important;color:var(--accent)!important}
-.snav-ai.active{background:rgba(124,106,255,.15)!important;color:var(--accent)!important}
-.mnav-ai{color:var(--accent)!important}
-.mnav-ai.active::after{background:var(--accent)!important}
-/* AI tool tabs — match .snav-btn style */
-.ai-tool-tabs{display:flex;gap:6px;margin-bottom:12px}
-.ai-tool-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 12px;border-radius:8px;background:none;border:1px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:.07em}
-.ai-tool-tab:hover{background:var(--surface2);color:var(--text)}
-.ai-tool-tab.active{background:rgba(124,106,255,.15);border-color:var(--accent);color:var(--accent)}
-.ai-tool-panel{display:none}
-.ai-tool-panel.active{display:block}
-/* Upload drop zone */
-.ai-upload-area{border:2px dashed var(--border);border-radius:12px;padding:22px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:10px;background:var(--surface2)}
-.ai-upload-area:hover,.ai-upload-area.dragover{border-color:var(--accent);background:rgba(124,106,255,.06)}
-/* File list */
-.ai-file-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
-.ai-file-item{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:.72rem}
-.ai-file-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)}
-.ai-file-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:2px;transition:color .15s}
-.ai-file-remove:hover{color:var(--accent2)}
-/* AI result */
-.ai-result{margin-top:12px;animation:fadeUp .2s ease}
-.ai-result-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--done);margin-bottom:8px;font-weight:600}
-.ai-summary-text{font-size:.78rem;line-height:1.75;color:var(--text);white-space:pre-wrap}
-.ai-loading-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px;color:var(--muted);font-size:.72rem}
-.ai-spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+
 /* Flashcards in AI tab */
 .fc-card-wrap{perspective:1000px;height:200px;cursor:pointer;margin-bottom:16px}
 .fc-card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
@@ -335,24 +279,18 @@ textarea::placeholder{color:var(--muted)}
 .fc-prog-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .4s}
 .fc-complete{text-align:center;padding:28px 0}
 .fc-complete-icon{font-size:2.8rem;margin-bottom:10px}
-/* Home dashboard */
-.home-hero{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;margin-bottom:12px}
-.home-hero-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:8px}
-.home-today-time{font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;line-height:1;letter-spacing:-.04em;color:var(--accent);margin-bottom:4px}
-.home-today-sub{font-size:.68rem;color:var(--muted);margin-bottom:14px}
-.home-goal-track{height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:6px}
-.home-goal-fill{height:100%;border-radius:99px;transition:width .6s ease}
-.home-goal-labels{display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted)}
-.home-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
-.home-stat{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center}
-.home-stat-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text)}
-.home-stat-lbl{font-size:.55rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
-.hm30-wrap{overflow-x:auto;padding-bottom:4px}
-.hm30-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,13px);gap:3px;width:max-content}
-.hm30-cell{width:13px;height:13px;border-radius:3px;cursor:default}
-.hm30-legend{display:flex;align-items:center;gap:4px;font-size:.57rem;color:var(--muted);margin-top:6px}
-.hm30-legend-cell{width:11px;height:11px;border-radius:2px}
 
+
+/* ─── Pomodoro ─── */
+.pomo-wrap{text-align:center;padding:4px 0}
+.pomo-mode-pill{display:inline-block;font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;padding:3px 12px;border-radius:99px;margin-bottom:12px;font-weight:600;transition:all .3s}
+.pomo-ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 14px}
+.pomo-ring-bg{fill:none;stroke:var(--border);stroke-width:9}
+.pomo-ring-fill{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s ease,stroke .3s}
+.pomo-ring-time{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;text-anchor:middle;dominant-baseline:central;transition:fill .3s}
+.pomo-ring-sub{font-size:.5rem;text-anchor:middle;dominant-baseline:central;text-transform:uppercase;letter-spacing:.12em;fill:var(--muted)}
+.pomo-sessions{font-size:.65rem;color:var(--muted);margin-bottom:12px}
+.pomo-btns{display:flex;gap:8px;justify-content:center}
 </style>
 </head>
 <body>
@@ -401,7 +339,6 @@ textarea::placeholder{color:var(--muted)}
         <button class="snav-btn" id="snav-subjects" onclick="pcTab('subjects')"><span class="sn-icon">📚</span>Subjects</button>
         <button class="snav-btn" id="snav-grades"   onclick="pcTab('grades')">  <span class="sn-icon">🎓</span>Grades</button>
         <button class="snav-btn" id="snav-history"  onclick="pcTab('history')"> <span class="sn-icon">📅</span>History</button>
-        <button class="snav-btn snav-ai" id="snav-ai" onclick="pcTab('ai')"><span class="sn-icon">✦</span>AI Tools</button>
       </div>
       <div class="sidebar-sw">
         <div class="section-label">⏱ Stopwatch</div>
@@ -446,7 +383,7 @@ textarea::placeholder{color:var(--muted)}
           </div>
           <div>
             <div class="section-label">🍅 Pomodoro</div>
-            <div class="card" style="padding:20px"><div class="pomo-display"></div></div>
+            <div class="card" style="padding:20px 16px"><div class="pomo-display"></div></div>
           </div>
         </div>
         <div id="pcHistoryContent"></div>
@@ -465,7 +402,6 @@ textarea::placeholder{color:var(--muted)}
         <div class="section-label">Study History</div>
         <div id="pcHistoryFullContent"></div>
       </div>
-      <div class="pc-panel" id="pcPanel-ai"><div id="pcAIContent"></div></div>
     </main>
   </div>
 
@@ -485,8 +421,8 @@ textarea::placeholder{color:var(--muted)}
           </div>
         </div>
         <div class="section-label" style="margin-top:16px">🍅 Pomodoro</div>
-        <div class="card" style="padding:20px;margin-bottom:10px"><div class="pomo-display"></div></div>
-        <div class="section-label">Today</div>
+        <div class="card" style="padding:20px 16px"><div class="pomo-display"></div></div>
+        <div class="section-label" style="margin-top:4px">Today</div>
         <div class="card">
           <div class="today-big" id="mobTodayBig">0m</div>
           <div style="font-size:.65rem;color:var(--muted);margin-top:2px">Logged study time</div>
@@ -526,7 +462,6 @@ textarea::placeholder{color:var(--muted)}
         <div class="section-label">Study History</div>
         <div id="mobHistoryContent"></div>
       </div>
-      <div class="screen" id="mob-ai"><div id="mobAIContent"></div></div>
     </div>
     <nav class="bottom-nav">
       <button class="nav-btn active" id="mnav-dashboard" onclick="mobTab('dashboard')"><span class="nav-icon">🏠</span><span>Home</span></button>
@@ -534,23 +469,10 @@ textarea::placeholder{color:var(--muted)}
       <button class="nav-btn" id="mnav-subjects" onclick="mobTab('subjects')"><span class="nav-icon">📚</span><span>Subjects</span></button>
       <button class="nav-btn" id="mnav-grades"   onclick="mobTab('grades')">  <span class="nav-icon">🎓</span><span>Grades</span></button>
       <button class="nav-btn" id="mnav-history"  onclick="mobTab('history')"> <span class="nav-icon">📅</span><span>History</span></button>
-      <button class="nav-btn mnav-ai" id="mnav-ai" onclick="mobTab('ai')"><span class="nav-icon">✦</span><span>AI</span></button>
     </nav>
   </div>
 </div>
 
-<!-- Pomo Lockout -->
-<div class="pomo-lock" id="pomoLock">
-  <div class="pomo-lock-backdrop"></div>
-  <div class="pomo-lock-msg">
-    <div style="font-size:1.8rem;margin-bottom:6px">🍅</div>
-    <div class="pomo-lock-title">Focus Mode</div>
-    <div class="pomo-lock-sub">Stay locked in. App navigation is disabled during your session.</div>
-    <div class="pomo-lock-timer" id="pomoLockTimer">25:00</div>
-    <button class="pomo-lock-ai-btn" onclick="goToAIFromLock()">✦ Open AI Tools</button>
-    <button class="pomo-lock-stop" onclick="pomoStop()">✕ End session early</button>
-  </div>
-</div>
 
 <!-- Modals -->
 <div class="modal-overlay" id="addTopicModal" onclick="if(event.target===this)closeTopicModal()">
@@ -654,13 +576,22 @@ textarea::placeholder{color:var(--muted)}
       <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="importData(event)">
       <div id="importStatus" style="font-size:.68rem;color:var(--done);margin-top:8px;display:none"></div>
     </div>
+
+
+    <!-- Study Goals -->
     <div class="settings-section">
       <div class="settings-section-label">🍅 Pomodoro</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div><div style="font-size:.68rem;color:var(--muted);margin-bottom:4px">Focus (minutes)</div><input type="number" id="pomoFocus" min="5" max="90" step="5" placeholder="25"></div>
-        <div><div style="font-size:.68rem;color:var(--muted);margin-bottom:4px">Break (minutes)</div><input type="number" id="pomoBreak" min="1" max="30" step="1" placeholder="5"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:4px">Focus (min)</div>
+          <input type="number" id="pomoFocus" min="5" max="90" step="5" placeholder="25">
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--muted);margin-bottom:4px">Break (min)</div>
+          <input type="number" id="pomoBreak" min="1" max="30" step="1" placeholder="5">
+        </div>
       </div>
-      <button class="btn primary" style="width:100%;margin-top:10px" onclick="savePomo()">Save Pomodoro Settings</button>
+      <button class="btn primary" style="width:100%" onclick="savePomo()">Save Pomodoro Settings</button>
     </div>
 
     <!-- Study Goals -->
@@ -734,7 +665,7 @@ function initFirebase() {
         useCloud = true;
         hideLoginScreen();
         renderAuthBar();
-        loadCloudData().then(async () => { await loadGeminiKeyFromCloud(); initApp();
+        loadCloudData().then(async () => {          initApp();
           toast('☁️ Signed in as ' + (user.displayName || user.email));
         });
       } else {
@@ -1281,24 +1212,9 @@ function buildDash(){
   ${allTopics>0?`<div style="margin-top:6px;margin-bottom:2px"><div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted);margin-bottom:3px"><span>Overall topic progress</span><span>${topicsPct}%</span></div><div style="height:5px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:${topicsPct}%;background:${topicsPct===100?'var(--done)':topicsPct>=60?'var(--accent)':'var(--accent2)'};border-radius:99px;transition:width .5s"></div></div></div>`:''}
   `;
 
-  // ── Home hero: today's progress
-  const homeHtml = `
-    <div class="home-hero">
-      <div class="home-hero-label">Today · ${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</div>
-      <div class="home-today-time">${fmtHM(todSecs)||'0m'}</div>
-      <div class="home-today-sub">Studied today · Goal: ${fmtHM(dailyGoalSec)}</div>
-      <div class="home-goal-track"><div class="home-goal-fill" style="width:${dailyPct}%;background:${dailyCol}"></div></div>
-      <div class="home-goal-labels"><span>0</span><span style="color:${dailyPct>=100?'var(--done)':'var(--muted)'}">${dailyPct>=100?'✓ Goal reached!':dailyPct+'%'}</span><span>${fmtHM(dailyGoalSec)}</span></div>
-      <div class="home-stats-row">
-        <div class="home-stat"><div class="home-stat-val">${fmtHM(weekSec)||'0m'}</div><div class="home-stat-lbl">This week</div></div>
-        <div class="home-stat"><div class="home-stat-val">${doneTopics}/${allTopics}</div><div class="home-stat-lbl">Topics done</div></div>
-        <div class="home-stat"><div class="home-stat-val">${upcomingExams.length}</div><div class="home-stat-lbl">Exams soon</div></div>
-      </div>
-    </div>
-    <div class="section-label">📅 Activity — Last 30 Days</div>
-    <div class="card" style="padding:14px;margin-bottom:12px">${buildHeatmap30()}</div>
-    ${quoteHtml}
-    <div class="section-label" style="margin-top:4px">📅 Upcoming Exams</div>${examHtml}`;
+  const studyPlanningHtml = goalHtml + quoteHtml + weekReportHtml +
+    `<div class="section-label" style="margin-top:4px">📅 Upcoming Exams</div>${examHtml}` +
+    `<div class="section-label" style="margin-top:12px">📅 Study Heatmap — Last 90 Days</div><div class="card" style="padding:14px">${buildHeatmap()}</div>`;
 
   return `
     <div class="dash-section">
@@ -1309,7 +1225,7 @@ function buildDash(){
         </div>
         <span class="dash-section-arrow">▾</span>
       </div>
-      <div class="dash-section-body" data-sec-body="study" style="max-height:4000px">${homeHtml}</div>
+      <div class="dash-section-body" data-sec-body="study" style="max-height:2000px">${studyPlanningHtml}</div>
     </div>  `;
 }
 function buildHeatmap(){
@@ -1345,7 +1261,8 @@ function pcTab(tab){
   if(tab==='history')  renderHistory();
   if(tab==='grades')   renderGrades('pc');
   if(tab==='dashboard')renderDash();
-  if(tab==='ai')       renderAIHub();}
+  if(tab==='timer')    setTimeout(renderPomo, 0);
+}
 function mobTab(tab){
   if(mobTab_current==='topics'&&tab!=='topics') document.getElementById('mob-topics').classList.remove('active');
   mobTab_current=tab;
@@ -1356,7 +1273,8 @@ function mobTab(tab){
   if(tab==='history')  renderHistory();
   if(tab==='grades')   renderGrades('mob');
   if(tab==='dashboard')renderDash();
-  if(tab==='ai')       renderAIHub();}
+  if(tab==='timer')    setTimeout(renderPomo, 0);
+}
 
 /* ─── SUBJECTS ─── */
 let activeSubject=null;
@@ -1797,11 +1715,10 @@ function initApp() {
   swRestore();
   document.getElementById('pcNewSubject').addEventListener('keydown',e=>{if(e.key==='Enter')addSubject();});
   document.getElementById('mobNewSubject').addEventListener('keydown',e=>{if(e.key==='Enter')addSubject();});
-  // Pomo init
   const pf=document.getElementById('pomoFocus'),pb=document.getElementById('pomoBreak');
   if(pf) pf.value=pomoSettings.focus||25;
   if(pb) pb.value=pomoSettings.brk||5;
-  pomoInit(); renderPomo();
+  pomoInit();
 }
 
 /* ─── BOOTSTRAP ─── */
@@ -1822,35 +1739,34 @@ setTimeout(()=>{
 
 /* ─── POMODORO ─── */
 let pomoSettings = JSON.parse(localStorage.getItem('finalsPomo')||'null') || {focus:25, brk:5};
-let pomoState = {running:false, mode:'focus', remaining:0, handle:null, sessions:0, totalFocus:0};
+let pomoState = {running:false, mode:'focus', remaining:0, handle:null, sessions:0};
 
 function pomoInit(){
-  if(pomoState.running) return;
   pomoState.remaining = pomoSettings.focus * 60;
   pomoState.mode = 'focus';
   renderPomo();
 }
 
 function pomoToggle(){
-  if(!pomoState.running){
-    pomoState.running = true;
+  if(pomoState.running){
+    clearInterval(pomoState.handle);
+    pomoState.running = false;
+  } else {
     if(pomoState.remaining === 0){
       pomoState.mode = 'focus';
       pomoState.remaining = pomoSettings.focus * 60;
     }
-    pomoLockOn();
+    pomoState.running = true;
     pomoState.handle = setInterval(()=>{
       if(pomoState.remaining > 0){
         pomoState.remaining--;
         renderPomo();
-        updatePomoLockTimer();
       } else {
         clearInterval(pomoState.handle);
         pomoState.running = false;
         if(pomoState.mode === 'focus'){
           pomoState.sessions++;
-          pomoState.totalFocus += pomoSettings.focus * 60;
-          toast('🍅 Focus done! Take a break.');
+          toast('🍅 Focus session done! Take a break.');
           pomoState.mode = 'break';
           pomoState.remaining = pomoSettings.brk * 60;
         } else {
@@ -1858,89 +1774,21 @@ function pomoToggle(){
           pomoState.mode = 'focus';
           pomoState.remaining = pomoSettings.focus * 60;
         }
-        pomoLockOff();
         renderPomo();
-        // auto-start next phase after short pause
-        setTimeout(()=>{ if(!pomoState.running) pomoToggle(); }, 1200);
       }
     }, 1000);
-  } else {
-    clearInterval(pomoState.handle);
-    pomoState.running = false;
-    pomoLockOff();
-    renderPomo();
   }
+  renderPomo();
 }
 
-function pomoStop(){
-  if(!confirm('End focus session early?')) return;
+function pomoReset(){
+  if(pomoState.running && !confirm('Reset the Pomodoro?')) return;
   clearInterval(pomoState.handle);
   pomoState.running = false;
   pomoState.mode = 'focus';
   pomoState.remaining = pomoSettings.focus * 60;
   pomoState.sessions = 0;
-  pomoLockOff();
   renderPomo();
-}
-
-function pomoLockOn(){
-  const lock = document.getElementById('pomoLock');
-  if(lock) lock.classList.add('active');
-  updatePomoLockTimer();
-}
-function pomoLockOff(){
-  const lock = document.getElementById('pomoLock');
-  if(lock) lock.classList.remove('active');
-}
-function updatePomoLockTimer(){
-  const el = document.getElementById('pomoLockTimer');
-  if(!el) return;
-  const m = Math.floor(pomoState.remaining/60), s = pomoState.remaining%60;
-  el.textContent = pad(m)+':'+pad(s);
-  el.style.color = pomoState.mode==='focus' ? 'var(--accent)' : 'var(--done)';
-}
-function goToAIFromLock(){
-  isMob() ? mobTab('ai') : pcTab('ai');
-}
-
-function renderPomo(){
-  const isFocus = pomoState.mode === 'focus';
-  const col = isFocus ? 'var(--accent)' : 'var(--done)';
-  const total = (isFocus ? pomoSettings.focus : pomoSettings.brk) * 60;
-  const elapsed = total - pomoState.remaining;
-  const pct = Math.min(100, (elapsed / total) * 100);
-  const m = Math.floor(pomoState.remaining/60), s = pomoState.remaining%60;
-  const R = 76, C = 2*Math.PI*R;
-  const offset = C - (pct/100)*C;
-  const sessMin = Math.floor(pomoState.totalFocus/60);
-  const badgeBg = isFocus ? 'rgba(124,106,255,.12)' : 'rgba(106,255,212,.1)';
-  const badgeBorder = isFocus ? 'rgba(124,106,255,.25)' : 'rgba(106,255,212,.25)';
-
-  const html = `<div class="pomo-wrap">
-    <div class="pomo-mode-badge" style="background:${badgeBg};color:${col};border:1px solid ${badgeBorder}">
-      ${isFocus ? '🍅 Focus' : '☕ Break'}
-    </div>
-    <div class="pomo-ring-wrap">
-      <svg width="180" height="180" viewBox="0 0 180 180">
-        <circle class="pomo-ring-bg" cx="90" cy="90" r="${R}"/>
-        <circle class="pomo-ring-fill" cx="90" cy="90" r="${R}"
-          stroke="${col}"
-          stroke-dasharray="${C.toFixed(2)}"
-          stroke-dashoffset="${offset.toFixed(2)}"
-          transform="rotate(-90 90 90)"/>
-        <text class="pomo-ring-text" x="90" y="86">${pad(m)}:${pad(s)}</text>
-        <text class="pomo-ring-sub" x="90" y="105">${isFocus?'focus':'break'}</text>
-      </svg>
-    </div>
-    <div class="pomo-sessions">Session ${pomoState.sessions+1} · ${sessMin}m focused</div>
-    <div class="pomo-btns">
-      <button class="btn${pomoState.running?' danger':' primary'}" onclick="pomoToggle()" style="min-width:90px">
-        ${pomoState.running ? '⏸ Pause' : (pomoState.remaining < total ? '▶ Resume' : '▶ Start')}
-      </button>
-      <button class="btn" onclick="pomoStop()">↺ Reset</button>
-    </div>
-  </div>`;
-  document.querySelectorAll('.pomo-display').forEach(el => el.innerHTML = html);
 }
 
 function savePomo(){
@@ -1948,378 +1796,46 @@ function savePomo(){
   const b = parseInt(document.getElementById('pomoBreak')?.value)||5;
   pomoSettings = {focus:f, brk:b};
   localStorage.setItem('finalsPomo', JSON.stringify(pomoSettings));
-  pomoState.running = false; clearInterval(pomoState.handle);
-  pomoState.remaining = f*60; pomoState.mode = 'focus'; pomoState.sessions = 0;
-  renderPomo(); toast('✓ Pomodoro settings saved');
+  clearInterval(pomoState.handle);
+  pomoState.running = false;
+  pomoState.mode = 'focus';
+  pomoState.remaining = f * 60;
+  pomoState.sessions = 0;
+  renderPomo();
+  toast('✓ Pomodoro settings saved');
 }
 
-/* ─── AI TOOLS ─── */
-let _geminiKey = localStorage.getItem('finalsGeminiKey')||'';
-let _aiFiles = []; // {name, b64, mime, type:'image'|'pdf'|'text', textContent?}
-let fcDeck=[], fcIndex=0, fcKnown=new Set();
-
-/* Key management */
-async function loadGeminiKeyFromCloud(){
-  const doc = getUserDoc();
-  if(!doc) return;
-  try{
-    const snap = await doc.get();
-    const k = snap.exists ? snap.data()?.geminiKey||'' : '';
-    if(k){ _geminiKey=k; localStorage.setItem('finalsGeminiKey',k); }
-  } catch(e){}
-}
-async function saveGeminiKeyToCloud(key){
-  _geminiKey = key;
-  localStorage.setItem('finalsGeminiKey', key);
-  const doc = getUserDoc();
-  if(doc){ try{ await doc.set({geminiKey:key},{merge:true}); }catch(e){} }
-}
-async function saveAIKey(pfx){
-  const inp = document.getElementById(pfx+'AIKeyInput');
-  const val = inp?.value.trim();
-  if(!val){ toast('Enter your API key'); return; }
-  await saveGeminiKeyToCloud(val);
-  toast('✓ Key saved & synced to your account');
-  renderAIHub();
-}
-async function clearAIKey(){
-  await saveGeminiKeyToCloud('');
-  toast('✓ Key cleared');
-  renderAIHub();
-}
-
-/* Gemini 3 Flash API call */
-async function callGemini(parts){
-  if(!_geminiKey) throw new Error('NO_KEY');
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(_geminiKey)}`;
-  const res = await fetch(url,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      contents:[{role:'user', parts}],
-      generationConfig:{temperature:0.35, maxOutputTokens:2048}
-    })
-  });
-  if(!res.ok){
-    const e=await res.json().catch(()=>({}));
-    const msg=e?.error?.message||'API error '+res.status;
-    if(res.status===400&&msg.toLowerCase().includes('api key')) throw new Error('INVALID_KEY');
-    throw new Error(msg);
-  }
-  const j = await res.json();
-  return j.candidates?.[0]?.content?.parts?.[0]?.text||'';
-}
-
-/* File handling */
-function handleAIFiles(pfx, slotOrFiles, maybeFiles){
-  // Called as handleAIFiles(pfx, 'Sum', files) OR handleAIFiles(pfx, files)
-  const files = maybeFiles || slotOrFiles;
-  for(const file of files){
-    if(_aiFiles.length>=5){ toast('Max 5 files'); break; }
-    const mime = file.type||'application/octet-stream';
-    const isImg = mime.startsWith('image/');
-    const isPDF = mime==='application/pdf';
-    const isText = mime.startsWith('text/')||file.name.endsWith('.txt')||file.name.endsWith('.md');
-    if(!isImg&&!isPDF&&!isText){ toast('Skipped '+file.name+' — unsupported type'); continue; }
-    const reader = new FileReader();
-    reader.onload = e=>{
-      const result = e.target.result;
-      if(isText){
-        _aiFiles.push({name:file.name, mime, type:'text', textContent: result});
-      } else {
-        const b64 = result.split(',')[1];
-        _aiFiles.push({name:file.name, b64, mime, type: isImg?'image':'pdf'});
-      }
-      renderAIFileList();
-    };
-    if(isText) reader.readAsText(file);
-    else reader.readAsDataURL(file);
-  }
-}
-function removeAIFile(idx){
-  _aiFiles.splice(idx,1);
-  renderAIFileList();
-}
-function renderAIFileList(){
-  const listHtml = !_aiFiles.length ? '' : _aiFiles.map((f,i)=>{
-    const ico = f.type==='image' ? '🖼' : f.type==='pdf' ? '📄' : '📝';
-    return `<div class="ai-file-item">
-      <span style="font-size:.85rem">${ico}</span>
-      <span class="ai-file-name">${hh(f.name)}</span>
-      <button class="ai-file-remove" onclick="removeAIFile(${i})">✕</button>
-    </div>`;
-  }).join('');
-  // Update all file list containers across both pc/mob and both tool panels
-  ['pcAIFileListSum','mobAIFileListSum','pcAIFileListFC','mobAIFileListFC'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.innerHTML = listHtml;
-  });
-}
-
-/* Build Gemini parts from uploaded files */
-function buildFileParts(){
-  return _aiFiles.map(f=>{
-    if(f.type==='text') return {text:`[File: ${f.name}]\n${f.textContent}`};
-    return {inline_data:{mime_type:f.mime, data:f.b64}};
-  });
-}
-
-/* Summarizer */
-async function runSummarize(pfx){
-  const resEl = document.getElementById(pfx+'AISumResult');
-  if(!resEl) return;
-  if(!_geminiKey){
-    const keyRow = document.getElementById(pfx+'AIKeyRow') || document.getElementById(pfx+'AIKeyInput')?.closest('div');
-    if(keyRow){ keyRow.style.display='flex'; keyRow.scrollIntoView({behavior:'smooth',block:'center'}); }
-    toast('Please set your API key first');
-    return;
-  }
-  if(!_aiFiles.length){ toast('Please attach at least one file'); return; }
-  resEl.innerHTML = '<div class="ai-loading-wrap"><div class="ai-spinner"></div><div>Analyzing your material\u2026</div></div>';
-
-  const fileParts = buildFileParts();
-  const promptPart = {text:`You are an expert academic summarizer specializing in engineering subjects (circuits, thermodynamics, mechanics, algorithms, signals, structures, materials science, etc.).
-
-Analyze the provided content (which may include images, PDFs, or text notes from an engineering student) and produce a comprehensive structured summary.
-
-Format your response as clean plain text using this structure:
-📌 OVERVIEW
-[2-3 sentence big-picture summary]
-
-🔑 KEY CONCEPTS
-• [concept]: [clear explanation]
-• [repeat for each major concept]
-
-⚙️ FORMULAS & EQUATIONS
-• [formula name]: [the formula] — [what it's used for]
-(skip if no formulas present)
-
-📐 WORKED EXAMPLES / APPLICATIONS
-[Brief description of any examples or applications found]
-
-💡 EXAM TIPS
-• [important points a student should remember for exams]
-
-Be thorough but concise. Tailor explanations for an undergraduate engineering student.`};
-
-  try{
-    const raw = await callGemini([...fileParts, promptPart]);
-    resEl.innerHTML = `<div class="card ai-result">
-      <div class="ai-result-label">✓ Summary — from your material</div>
-      <div class="ai-summary-text">${hh(raw)}</div>
-    </div>`;
-  } catch(err){
-    const msg = err.message;
-    if(msg==='NO_KEY'||msg==='INVALID_KEY'){
-      if(msg==='INVALID_KEY'){ _geminiKey=''; localStorage.removeItem('finalsGeminiKey'); toast('⚠ Invalid key — please re-enter'); }
-      renderAIHub();
-    } else {
-      resEl.innerHTML=`<div style="color:var(--accent2);font-size:.78rem;padding:12px">⚠ ${hh(msg)}</div>`;
-    }
-  }
-}
-
-/* Flashcard Generator */
-async function runFlashcards(pfx){
-  const resEl = document.getElementById(pfx+'AIFCResult');
-  if(!resEl) return;
-  if(!_geminiKey){
-    const keyRow = document.getElementById(pfx+'AIKeyRow') || document.getElementById(pfx+'AIKeyInput')?.closest('div');
-    if(keyRow){ keyRow.style.display='flex'; keyRow.scrollIntoView({behavior:'smooth',block:'center'}); }
-    toast('Please set your API key first');
-    return;
-  }
-
-  if(!_aiFiles.length){ toast('Please attach at least one file'); return; }
-  resEl.innerHTML = '<div class="ai-loading-wrap"><div class="ai-spinner"></div><div>Generating flashcards\u2026</div></div>';
-
-  const fileParts = buildFileParts();
-  const promptPart = {text:`You are a flashcard generator for engineering students.
-Analyze the provided content and generate 10-20 flashcards covering the most important concepts, formulas, definitions, and problem-solving methods.
-
-Respond ONLY with valid JSON (no markdown fences, no preamble):
-{"cards":[{"front":"concise question or term (under 15 words)","back":"clear answer, formula, or definition (1-3 sentences)"}]}
-
-Focus on: key definitions, formulas with variable meanings, circuit laws, theorems, algorithms, structural concepts — whatever is relevant to the content.
-Each card front should be a question or term. Each back should be precise and useful for exam prep.`};
-
-  try{
-    const raw = await callGemini([...fileParts, promptPart]);
-    let parsed;
-    try{ parsed = JSON.parse(raw.replace(/```json|```/g,'').trim()); }
-    catch(e){ resEl.innerHTML=`<div style="color:var(--accent2);font-size:.78rem;padding:12px">⚠ Could not parse response. Try again.</div>`; return; }
-    fcDeck = parsed.cards||[];
-    fcIndex = 0; fcKnown = new Set();
-    if(!fcDeck.length){ resEl.innerHTML=`<div style="color:var(--warn);font-size:.78rem;padding:12px">⚠ No cards generated. Try with more content.</div>`; return; }
-    resEl.innerHTML = `<div style="font-size:.6rem;padding:4px 10px;border-radius:8px;background:rgba(106,255,212,.08);color:var(--done);border:1px solid rgba(106,255,212,.2);display:inline-block;margin-bottom:12px">✓ ${fcDeck.length} cards from your material</div>
-    <div id="${pfx}FCDeck"></div>`;
-    renderFC(pfx);
-  } catch(err){
-    const msg = err.message;
-    if(msg==='NO_KEY'||msg==='INVALID_KEY'){
-      if(msg==='INVALID_KEY'){ _geminiKey=''; localStorage.removeItem('finalsGeminiKey'); toast('⚠ Invalid key'); }
-      renderAIHub();
-    } else {
-      resEl.innerHTML=`<div style="color:var(--accent2);font-size:.78rem;padding:12px">⚠ ${hh(msg)}</div>`;
-    }
-  }
-}
-
-function renderFC(pfx){
-  const el = document.getElementById(pfx+'FCDeck');
-  if(!el) return;
-  const rem = fcDeck.filter((_,i)=>!fcKnown.has(i));
-  if(!rem.length){
-    el.innerHTML=`<div class="fc-complete"><div class="fc-complete-icon">🎉</div><div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:6px">Deck Complete!</div><div style="font-size:.72rem;color:var(--muted);margin-bottom:16px">All ${fcDeck.length} cards mastered.</div><button class="btn primary" onclick="fcKnown=new Set();fcIndex=0;renderFC('${pfx}')">↺ Restart</button></div>`;
-    return;
-  }
-  if(fcIndex>=rem.length) fcIndex=0;
-  const card = rem[fcIndex];
-  const origIdx = fcDeck.indexOf(card);
-  const pct = Math.round((fcKnown.size/fcDeck.length)*100);
-  el.innerHTML=`
-    <div class="fc-counter">Card ${fcIndex+1} of ${rem.length} remaining</div>
-    <div class="fc-prog-track"><div class="fc-prog-fill" style="width:${pct}%"></div></div>
-    <div class="fc-card-wrap" onclick="document.getElementById('${pfx}FCCard').classList.toggle('flipped')">
-      <div class="fc-card" id="${pfx}FCCard">
-        <div class="fc-face fc-front">
-          <div class="fc-face-label">Question</div>
-          <div class="fc-face-text">${hh(card.front)}</div>
-          <div class="fc-face-hint">tap to flip</div>
-        </div>
-        <div class="fc-face fc-back">
-          <div class="fc-face-label">Answer</div>
-          <div class="fc-face-text">${hh(card.back)}</div>
-        </div>
-      </div>
+function renderPomo(){
+  const isFocus = pomoState.mode === 'focus';
+  const col = isFocus ? 'var(--accent)' : 'var(--done)';
+  const total = (isFocus ? pomoSettings.focus : pomoSettings.brk) * 60;
+  const pct = total > 0 ? Math.min(1, (total - pomoState.remaining) / total) : 0;
+  const m = Math.floor(pomoState.remaining / 60);
+  const s = pomoState.remaining % 60;
+  const R = 68, C = 2 * Math.PI * R;
+  const offset = C - pct * C;
+  const html = `<div class="pomo-wrap">
+    <div class="pomo-mode-pill" style="background:${isFocus?'rgba(124,106,255,.12)':'rgba(106,255,212,.1)'};color:${col};border:1px solid ${isFocus?'rgba(124,106,255,.3)':'rgba(106,255,212,.3)'}">${isFocus?'🍅 Focus':'☕ Break'}</div>
+    <div class="pomo-ring-wrap">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle class="pomo-ring-bg" cx="80" cy="80" r="${R}"/>
+        <circle class="pomo-ring-fill" cx="80" cy="80" r="${R}"
+          stroke="${col}" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}"
+          transform="rotate(-90 80 80)"/>
+        <text class="pomo-ring-time" x="80" y="76" fill="${col}">${pad(m)}:${pad(s)}</text>
+        <text class="pomo-ring-sub" x="80" y="96">${isFocus?'focus':'break'}</text>
+      </svg>
     </div>
-    <div class="fc-nav">
-      <button class="fc-nav-btn" onclick="if(fcIndex>0){fcIndex--;renderFC('${pfx}')}" ${fcIndex===0?'disabled':''}>← Prev</button>
-      <button class="fc-known-btn" onclick="fcKnown.add(${origIdx});const r=fcDeck.filter((_,i)=>!fcKnown.has(i));if(fcIndex>=r.length)fcIndex=Math.max(0,r.length-1);renderFC('${pfx}')">✓ Got it</button>
-      <button class="fc-nav-btn" onclick="if(fcIndex<${rem.length-1}){fcIndex++;renderFC('${pfx}')}" ${fcIndex===rem.length-1?'disabled':''}>Next →</button>
-    </div>
-    <div style="text-align:center;font-size:.6rem;color:var(--muted)">${fcKnown.size}/${fcDeck.length} known · ${pct}%</div>`;
-}
-
-/* Render AI Hub (prefix-safe) */
-function buildAIHubHTML(pfx){
-  const hasKey = !!_geminiKey;
-  const masked = hasKey ? _geminiKey.slice(0,6)+'••••'+_geminiKey.slice(-4) : '';
-  const synced = !!currentUser;
-  return `
-    <div class="section-label">✦ AI Tools <span style="font-size:.55rem;margin-left:4px;color:var(--accent);opacity:.7">Gemini 3 Flash</span></div>
-
-    <!-- API Key -->
-    <div class="card" style="margin-bottom:12px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem">🔑 API Key</div>
-        ${hasKey
-          ? `<span style="font-size:.62rem;color:var(--done)">✓ Active${synced?' · synced':''}</span>`
-          : `<span style="font-size:.62rem;color:var(--warn)">⚠ Not set</span>`
-        }
-      </div>
-      ${hasKey
-        ? `<div style="display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:10px">
-             <span style="font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);flex:1">${masked}</span>
-             <button class="btn sm" onclick="document.getElementById('${pfx}AIKeyRow').style.display='flex'">Change</button>
-             <button class="btn sm" style="color:var(--accent2);border-color:var(--accent2)" onclick="clearAIKey()">Clear</button>
-           </div>
-           <div id="${pfx}AIKeyRow" style="display:none;gap:8px;align-items:center">
-             <input type="password" id="${pfx}AIKeyInput" placeholder="New key (AIza…)" style="flex:1">
-             <button class="btn primary sm" onclick="saveAIKey('${pfx}')">Save</button>
-           </div>`
-        : `<div style="font-size:.68rem;color:var(--muted);margin-bottom:8px;line-height:1.6">Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--accent)">aistudio.google.com/apikey</a>${synced?' — syncs to all your devices':''}</div>
-           <div class="input-row">
-             <input type="password" id="${pfx}AIKeyInput" placeholder="Paste key (AIza…)">
-             <button class="btn primary" onclick="saveAIKey('${pfx}')">Save</button>
-           </div>`
-      }
-    </div>
-
-    <!-- Tool tabs -->
-    <div class="ai-tool-tabs">
-      <button class="ai-tool-tab active" id="${pfx}TabSum" onclick="switchAITab('${pfx}','sum')">📝 Summarizer</button>
-      <button class="ai-tool-tab" id="${pfx}TabFC" onclick="switchAITab('${pfx}','fc')">🃏 Flashcards</button>
-    </div>
-
-    <!-- Summarizer Panel -->
-    <div class="ai-tool-panel active" id="${pfx}PanelSum">
-      <div class="ai-upload-area" id="${pfx}DropSum"
-        onclick="document.getElementById('${pfx}FileInputSum').click()"
-        ondragover="event.preventDefault();this.classList.add('dragover')"
-        ondragleave="this.classList.remove('dragover')"
-        ondrop="event.preventDefault();this.classList.remove('dragover');handleAIFiles('${pfx}','Sum',event.dataTransfer.files)">
-        <div style="font-size:1.6rem;margin-bottom:6px">📎</div>
-        <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-bottom:3px">Tap to upload or drag & drop</div>
-        <div style="font-size:.65rem;color:var(--muted)">Photos of notes · PDFs · Text files (max 5)</div>
-      </div>
-      <input type="file" id="${pfx}FileInputSum" style="display:none" multiple accept="image/*,.pdf,.txt,.md" onchange="handleAIFiles('${pfx}','Sum',this.files)">
-      <div id="${pfx}AIFileListSum" class="ai-file-list"></div>
-      <button class="btn primary lg" onclick="runSummarize('${pfx}')" ${!hasKey?'disabled style="opacity:.4;cursor:not-allowed"':''}>
-        ${hasKey ? '✦ Summarize' : '⚠ Set API key first'}
+    <div class="pomo-sessions">Session ${pomoState.sessions+1} · ${pomoState.sessions*pomoSettings.focus}min focused</div>
+    <div class="pomo-btns">
+      <button class="btn primary" onclick="pomoToggle()" style="${pomoState.running?'background:var(--accent2);border-color:var(--accent2)':''}">
+        ${pomoState.running?'⏸ Pause':(pomoState.remaining<total?'▶ Resume':'▶ Start')}
       </button>
-      <div id="${pfx}AISumResult"></div>
+      <button class="btn" onclick="pomoReset()">↺ Reset</button>
     </div>
-
-    <!-- Flashcard Panel -->
-    <div class="ai-tool-panel" id="${pfx}PanelFC">
-      <div class="ai-upload-area"
-        onclick="document.getElementById('${pfx}FileInputFC').click()"
-        ondragover="event.preventDefault();this.classList.add('dragover')"
-        ondragleave="this.classList.remove('dragover')"
-        ondrop="event.preventDefault();this.classList.remove('dragover');handleAIFiles('${pfx}','FC',event.dataTransfer.files)">
-        <div style="font-size:1.6rem;margin-bottom:6px">🃏</div>
-        <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-bottom:3px">Tap to upload or drag & drop</div>
-        <div style="font-size:.65rem;color:var(--muted)">Photos of notes · PDFs · Text files (max 5)</div>
-      </div>
-      <input type="file" id="${pfx}FileInputFC" style="display:none" multiple accept="image/*,.pdf,.txt,.md" onchange="handleAIFiles('${pfx}','FC',this.files)">
-      <div id="${pfx}AIFileListFC" class="ai-file-list"></div>
-      <button class="btn primary lg" onclick="runFlashcards('${pfx}')" ${!hasKey?'disabled style="opacity:.4;cursor:not-allowed"':''}>
-        ${hasKey ? '✦ Generate Flashcards' : '⚠ Set API key first'}
-      </button>
-      <div id="${pfx}AIFCResult"></div>
-    </div>`;
+  </div>`;
+  document.querySelectorAll('.pomo-display').forEach(el=>el.innerHTML=html);
 }
-
-function renderAIHub(){
-  _aiFiles = [];
-  const pc = document.getElementById('pcAIContent');
-  const mob = document.getElementById('mobAIContent');
-  if(pc)  pc.innerHTML  = buildAIHubHTML('pc');
-  if(mob) mob.innerHTML = buildAIHubHTML('mob');
-}
-
-function switchAITab(pfx, tab){
-  ['Sum','FC'].forEach(t=>{
-    document.getElementById(pfx+'Tab'+t)?.classList.toggle('active', t.toLowerCase()===tab);
-    document.getElementById(pfx+'Panel'+t)?.classList.toggle('active', t.toLowerCase()===tab);
-  });
-}
-
-/* ─── HOME DASHBOARD (replace buildDash) ─── */
-function buildHeatmap30(){
-  const today = new Date(); today.setHours(0,0,0,0);
-  // Start from 29 days ago, aligned to Sunday
-  const start = new Date(today); start.setDate(start.getDate()-29);
-  const dow = start.getDay(); start.setDate(start.getDate()-dow);
-  const totalDays = Math.ceil((today-start)/86400000)+1;
-  const weeks=[]; let week=[];
-  for(let i=0;i<totalDays;i++){
-    const d=new Date(start); d.setDate(start.getDate()+i);
-    const k=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-    const sec=data.dailyLog[k]||0;
-    const fut=d>today, old=(today-d)/86400000>29;
-    let bg; if(fut||old) bg='var(--surface2)'; else if(sec===0) bg='var(--surface2)'; else if(sec<30*60) bg='#3a5c3a'; else if(sec<90*60) bg='#2d8f5e'; else bg='var(--done)';
-    const op=(fut||old)?0.2:1;
-    const lbl=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    week.push(`<div class="hm30-cell" style="background:${bg};opacity:${op}" title="${lbl}: ${sec?fmtHM(sec):'No study'}"></div>`);
-    if(week.length===7){weeks.push(week);week=[];}
-  }
-  if(week.length){while(week.length<7)week.push(`<div class="hm30-cell" style="background:var(--surface2);opacity:.1"></div>`);weeks.push(week);}
-  const mLabels=weeks.map((w,i)=>{const d=new Date(start);d.setDate(start.getDate()+i*7);return d.getDate()<=7?`<span style="position:absolute;left:${i*17}px;font-size:.55rem;color:var(--muted)">${d.toLocaleDateString('en-US',{month:'short'})}</span>`:''}).join('');
-  return `<div style="position:relative;height:14px;margin-bottom:4px">${mLabels}</div><div class="hm30-wrap"><div class="hm30-grid">${weeks.map(w=>w.join('')).join('')}</div></div><div class="hm30-legend"><span>Less</span><div class="hm30-legend-cell" style="background:var(--surface2);border:1px solid var(--border)"></div><div class="hm30-legend-cell" style="background:#3a5c3a"></div><div class="hm30-legend-cell" style="background:#2d8f5e"></div><div class="hm30-legend-cell" style="background:var(--done)"></div><span>More</span></div>`;
-}
-
 </script>
 </body>
 </html>
