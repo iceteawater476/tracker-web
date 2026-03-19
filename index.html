@@ -1244,6 +1244,35 @@ function buildChartSVG(days, label){
   return`<div class="card" style="margin-bottom:12px;padding:14px 14px 10px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">${label}</div><div style="display:flex;gap:12px;font-size:.6rem"><span style="color:var(--accent3)">● Study time</span><span style="color:var(--warn)">— Avg (${fmtHM(avg)||'0m'})</span><span style="color:${tc}">${td}</span></div></div><div style="overflow-x:auto">${svg}</div></div>`;
 }
 
+/* ─── MOTIVATIONAL QUOTES ─── */
+const QUOTES=[
+  {text:"Success is the sum of small efforts, repeated day in and day out.",author:"Robert Collier"},
+  {text:"The secret of getting ahead is getting started.",author:"Mark Twain"},
+  {text:"Don't watch the clock; do what it does. Keep going.",author:"Sam Levenson"},
+  {text:"You don't have to be great to start, but you have to start to be great.",author:"Zig Ziglar"},
+  {text:"The future belongs to those who believe in the beauty of their dreams.",author:"Eleanor Roosevelt"},
+  {text:"Study hard what interests you most in the most undisciplined, irreverent and original manner possible.",author:"Richard Feynman"},
+  {text:"Education is the passport to the future.",author:"Malcolm X"},
+  {text:"An investment in knowledge pays the best interest.",author:"Benjamin Franklin"},
+  {text:"The beautiful thing about learning is nobody can take it away from you.",author:"B.B. King"},
+  {text:"Push yourself, because no one else is going to do it for you.",author:"Unknown"}
+];
+function getDailyQuote(){
+  const d=new Date();
+  const seed=(d.getFullYear()*365+d.getMonth()*31+d.getDate());
+  return QUOTES[seed%QUOTES.length];
+}
+
+function weekStart(){
+  const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-d.getDay());
+  return d.toISOString().split('T')[0];
+}
+
+function openTopicModal(){
+  document.getElementById('addTopicModal').classList.add('open');
+  setTimeout(()=>document.getElementById('newTopicInput')?.focus(),150);
+}
+
 /* ─── DASHBOARD ─── */
 function renderDash(){
   const html=buildDash();
