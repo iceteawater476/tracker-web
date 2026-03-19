@@ -281,6 +281,49 @@ textarea::placeholder{color:var(--muted)}
 .fc-complete-icon{font-size:2.8rem;margin-bottom:10px}
 
 
+/* ─── Dashboard ─── */
+.goal-widget{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
+.goal-row{display:flex;align-items:center;justify-content:space-between}
+.goal-label{font-size:.72rem;color:var(--muted)}
+.goal-val{font-size:.72rem;font-weight:600}
+.goal-track{height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.goal-fill{height:100%;border-radius:99px;transition:width .5s}
+.quote-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;border-left:3px solid var(--accent)}
+.quote-text{font-size:.78rem;line-height:1.6;color:var(--text);margin-bottom:6px}
+.quote-author{font-size:.65rem;color:var(--muted)}
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.report-stat{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center}
+.report-val{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--accent)}
+.report-label{font-size:.58rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.exam-card{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:6px}
+.exam-days{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;min-width:38px;text-align:center}
+.exam-info{flex:1;min-width:0}
+.exam-name{font-size:.78rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exam-date{font-size:.62rem;color:var(--muted);margin-top:1px}
+.exam-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:2px;transition:color .15s}
+.exam-del:hover{color:var(--accent2)}
+/* Heatmap */
+.heatmap-wrap{overflow-x:auto;padding-bottom:4px}
+.heatmap-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,14px);gap:3px;width:max-content}
+.hm-cell{width:14px;height:14px;border-radius:3px;cursor:default;transition:opacity .15s}
+.hm-legend{display:flex;align-items:center;gap:4px;font-size:.58rem;color:var(--muted);margin-top:6px}
+.hm-legend-cell{width:12px;height:12px;border-radius:2px}
+/* GPA / Grades */
+.gpa-banner{background:linear-gradient(135deg,rgba(106,255,212,.1),rgba(124,106,255,.06));border:1px solid rgba(106,255,212,.3);border-radius:14px;padding:14px 18px;margin-bottom:12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.gpa-big{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:var(--done);line-height:1}
+.gpa-label{font-size:.62rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.1em}
+.gpa-list{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.gpa-chip{font-size:.65rem;padding:3px 9px;border-radius:99px;border:1px solid var(--border);color:var(--muted)}
+.grade-bar-inner{height:100%;border-radius:99px;transition:width .5s}
+/* Subject / Topics extras */
+.subj-color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;border:1.5px solid rgba(255,255,255,.15)}
+.archived-label{font-size:.55rem;padding:2px 8px;border-radius:99px;background:rgba(107,110,128,.15);color:var(--muted);border:1px solid var(--border);display:inline-block;margin-left:4px}
+.topic-note{font-size:.68rem;color:var(--muted);margin-bottom:6px;line-height:1.4}
+.topic-priority{font-size:.55rem;padding:2px 8px;border-radius:99px;border:1px solid;text-transform:uppercase;letter-spacing:.08em;display:inline-block;margin-bottom:4px}
+.pri-high{border-color:var(--todo);color:var(--todo);background:rgba(255,106,138,.08)}
+.pri-med{border-color:var(--warn);color:var(--warn);background:rgba(255,184,106,.08)}
+.pri-low{border-color:var(--muted);color:var(--muted)}
+
 /* ─── Pomodoro ─── */
 .pomo-wrap{text-align:center;padding:4px 0}
 .pomo-mode-pill{display:inline-block;font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;padding:3px 12px;border-radius:99px;margin-bottom:12px;font-weight:600;transition:all .3s}
@@ -291,6 +334,25 @@ textarea::placeholder{color:var(--muted)}
 .pomo-ring-sub{font-size:.5rem;text-anchor:middle;dominant-baseline:central;text-transform:uppercase;letter-spacing:.12em;fill:var(--muted)}
 .pomo-sessions{font-size:.65rem;color:var(--muted);margin-bottom:12px}
 .pomo-btns{display:flex;gap:8px;justify-content:center}
+/* ─── Break PDF Reader ─── */
+.pdf-reader-overlay{position:fixed;inset:0;z-index:900;background:var(--bg);display:none;flex-direction:column}
+.pdf-reader-overlay.open{display:flex}
+.pdf-reader-header{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+.pdf-reader-title{flex:1;font-size:.78rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdf-reader-timer{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:var(--done);flex-shrink:0}
+.pdf-reader-close{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:4px 10px;cursor:pointer;font-family:'DM Mono',monospace;font-size:.68rem;transition:all .15s}
+.pdf-reader-close:hover{border-color:var(--accent2);color:var(--accent2)}
+.pdf-reader-body{flex:1;overflow:hidden}
+.pdf-reader-body iframe{width:100%;height:100%;border:none;display:block}
+.pdf-reader-body .pdf-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(--muted)}
+.pdf-reader-body .pdf-empty-icon{font-size:2.8rem}
+.pdf-reader-body .pdf-empty-text{font-size:.78rem;text-align:center;line-height:1.6}
+.pdf-break-prompt{position:fixed;inset:0;z-index:950;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.pdf-break-prompt.open{display:flex}
+.pdf-break-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 24px;width:100%;max-width:360px;text-align:center}
+.pdf-break-icon{font-size:2.2rem;margin-bottom:10px}
+.pdf-break-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.pdf-break-sub{font-size:.72rem;color:var(--muted);margin-bottom:20px;line-height:1.6}
 </style>
 </head>
 <body>
@@ -473,6 +535,34 @@ textarea::placeholder{color:var(--muted)}
   </div>
 </div>
 
+
+<!-- Break PDF Reader -->
+<div class="pdf-reader-overlay" id="pdfReaderOverlay">
+  <div class="pdf-reader-header">
+    <span style="font-size:1rem">☕</span>
+    <span class="pdf-reader-title" id="pdfReaderTitle">Break — reading PDF</span>
+    <span class="pdf-reader-timer" id="pdfReaderTimer"></span>
+    <button class="pdf-reader-close" onclick="closePdfReader()">✕ Close</button>
+  </div>
+  <div class="pdf-reader-body" id="pdfReaderBody">
+    <div class="pdf-empty">
+      <div class="pdf-empty-icon">📄</div>
+      <div class="pdf-empty-text">No PDF loaded.<br>Tap "Open PDF" to choose a file.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Break Prompt (shown when focus session ends) -->
+<div class="pdf-break-prompt" id="pdfBreakPrompt">
+  <div class="pdf-break-card">
+    <div class="pdf-break-icon">☕</div>
+    <div class="pdf-break-title">Focus session done!</div>
+    <div class="pdf-break-sub">Break time. Want to read a PDF during your break?</div>
+    <input type="file" id="pdfFileInput" accept=".pdf" style="display:none" onchange="loadBreakPdf(event)">
+    <button class="btn primary lg" onclick="document.getElementById('pdfFileInput').click()" style="margin-bottom:8px">📄 Open a PDF</button>
+    <button class="btn lg" onclick="skipPdfBreak()" style="color:var(--muted)">Skip — just rest</button>
+  </div>
+</div>
 
 <!-- Modals -->
 <div class="modal-overlay" id="addTopicModal" onclick="if(event.target===this)closeTopicModal()">
@@ -1084,6 +1174,8 @@ function renderToday(){
 }
 
 /* ─── HISTORY ─── */
+let historyView = '7d'; // '7d' | '30d'
+
 function renderHistory(){
   const today=todayKey();
   const all=Object.entries(data.dailyLog).sort((a,b)=>b[0].localeCompare(a[0]));
@@ -1094,33 +1186,46 @@ function renderHistory(){
   const weekSec=week7Keys.reduce((a,k)=>a+(data.dailyLog[k]||0),0);
   const totSec =all.reduce((a,[,s])=>a+s,0);
   const avgSec =all.length?Math.round(totSec/all.length):0;
-  const sum=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+  const sum=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
     <div class="card" style="text-align:center;padding:12px"><div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent)">${fmtHM(weekSec)||'0m'}</div><div style="font-size:.6rem;color:var(--muted);margin-top:2px">This week</div></div>
     <div class="card" style="text-align:center;padding:12px"><div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent3)">${fmtHM(totSec)||'0m'}</div><div style="font-size:.6rem;color:var(--muted);margin-top:2px">All time</div></div>
     <div class="card" style="text-align:center;padding:12px"><div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--warn)">${fmtHM(avgSec)||'0m'}</div><div style="font-size:.6rem;color:var(--muted);margin-top:2px">Daily avg</div></div>
   </div>`;
+  const toggle=`<div style="display:flex;gap:6px;margin-bottom:12px">
+    <button class="btn sm${historyView==='7d'?' primary':''}" onclick="historyView='7d';renderHistory()">7 Days</button>
+    <button class="btn sm${historyView==='30d'?' primary':''}" onclick="historyView='30d';renderHistory()">30 Days</button>
+  </div>`;
   if (!all.length) {
-    const e=sum+'<div class="empty-msg"><span class="e-ico">📅</span>No sessions logged yet.</div>';
-    ['pcHistoryContent','pcHistoryFullContent','mobHistoryContent'].forEach(id=>document.getElementById(id).innerHTML=e);
+    const e=sum+toggle+'<div class="empty-msg"><span class="e-ico">📅</span>No sessions logged yet.</div>';
+    ['pcHistoryContent','pcHistoryFullContent','mobHistoryContent'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=e; });
     return;
   }
-  const chart=buildChart(today);
+  const chart = historyView==='30d' ? buildChart30(today) : buildChart7(today);
   const rows=all.map(([key,sec])=>{
     const isT=key===today,pct=Math.max(4,Math.round((sec/mx)*100)),col=isT?'var(--accent)':'var(--accent3)';
     return`<div class="hist-card"><div class="hist-date ${isT?'today':''}">${fmtDate(key)}</div><div class="hist-bar-track"><div class="hist-bar-fill" style="width:${pct}%;background:${col}"></div></div><div style="display:flex;align-items:center;gap:6px"><span class="hist-time">${fmtHM(sec)}</span><button class="hist-del" onclick="delLog('${key}')">✕</button></div></div>`;
   }).join('');
-  const full=sum+chart+rows;
-  document.getElementById('pcHistoryContent').innerHTML=sum+chart+rows;
-  document.getElementById('pcHistoryFullContent').innerHTML=full;
-  document.getElementById('mobHistoryContent').innerHTML=full;
+  const full=sum+toggle+chart+rows;
+  ['pcHistoryContent','pcHistoryFullContent','mobHistoryContent'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=full; });
 }
 function delLog(key){ if(!confirm('Delete entry for '+fmtDate(key)+'?'))return; delete data.dailyLog[key]; save(); renderToday(); renderHistory(); renderDash(); }
 
-function buildChart(today){
+function buildChart7(today){
   const days=[];
   for(let i=6;i>=0;i--){ const d=new Date();d.setDate(d.getDate()-i); const k=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); days.push({key:k,sec:data.dailyLog[k]||0,label:i===0?'Today':d.toLocaleDateString('en-US',{weekday:'short'}),isToday:i===0}); }
-  const mx=Math.max(...days.map(d=>d.sec),1),avg=days.reduce((a,d)=>a+d.sec,0)/7;
-  const W=500,H=160,PL=44,PR=16,PT=20,PB=28,cW=W-PL-PR,cH=H-PT-PB,n=days.length,xS=cW/(n-1);
+  return buildChartSVG(days, 'Last 7 Days');
+}
+
+function buildChart30(today){
+  const days=[];
+  for(let i=29;i>=0;i--){ const d=new Date();d.setDate(d.getDate()-i); const k=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); days.push({key:k,sec:data.dailyLog[k]||0,label:i===0?'Today':i%7===0?d.toLocaleDateString('en-US',{month:'short',day:'numeric'}):'',isToday:i===0}); }
+  return buildChartSVG(days, 'Last 30 Days');
+}
+
+function buildChartSVG(days, label){
+  const mx=Math.max(...days.map(d=>d.sec),1);
+  const avg=days.reduce((a,d)=>a+d.sec,0)/days.length;
+  const W=500,H=160,PL=44,PR=16,PT=20,PB=28,cW=W-PL-PR,cH=H-PT-PB,n=days.length,xS=n>1?cW/(n-1):cW;
   const maxH=mx/3600;
   const yL=[{v:0,y:PT+cH},{v:maxH/2,y:PT+cH/2},{v:maxH,y:PT}];
   const pts=days.map((d,i)=>({x:PL+i*xS,y:PT+cH-(d.sec/mx)*cH,d}));
@@ -1133,10 +1238,10 @@ function buildChart(today){
   const tY0=PT+cH-(Math.max(0,ic)/mx)*cH,tY1=PT+cH-(Math.max(0,sl*(n-1)+ic)/mx)*cH;
   const grid=yL.map(g=>`<line x1="${PL}" y1="${g.y.toFixed(1)}" x2="${W-PR}" y2="${g.y.toFixed(1)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>`).join('');
   const ylbl=yL.map(g=>`<text x="${PL-6}" y="${(g.y+4).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--muted)">${g.v.toFixed(g.v>=10?0:1)}h</text>`).join('');
-  const xlbl=pts.map(p=>`<text x="${p.x.toFixed(1)}" y="${(H-4).toFixed(1)}" text-anchor="middle" font-size="9" fill="${p.d.isToday?'var(--accent)':'var(--muted)'}">${p.d.label}</text>${p.d.sec>0?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${p.d.isToday?'var(--accent)':'var(--accent3)'}" stroke="var(--bg)" stroke-width="2"/><text x="${p.x.toFixed(1)}" y="${(p.y-9).toFixed(1)}" text-anchor="middle" font-size="8" fill="${p.d.isToday?'var(--accent)':'var(--accent3)'}">${fmtHM(p.d.sec)}</text>`:''}`).join('');
+  const xlbl=pts.map(p=>`<text x="${p.x.toFixed(1)}" y="${(H-4).toFixed(1)}" text-anchor="middle" font-size="9" fill="${p.d.isToday?'var(--accent)':'var(--muted)'}">${p.d.label}</text>${p.d.sec>0?`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${n>10?'2.5':'4'}" fill="${p.d.isToday?'var(--accent)':'var(--accent3)'}" stroke="var(--bg)" stroke-width="2"/>${n<=10?`<text x="${p.x.toFixed(1)}" y="${(p.y-9).toFixed(1)}" text-anchor="middle" font-size="8" fill="${p.d.isToday?'var(--accent)':'var(--accent3)'}">${fmtHM(p.d.sec)}</text>`:''}`:''}`).join('');
   const svg=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;overflow:visible">${grid}${ylbl}<path d="${area}" fill="var(--accent3)" opacity="0.07"/><line x1="${pts[0].x.toFixed(1)}" y1="${tY0.toFixed(1)}" x2="${pts[n-1].x.toFixed(1)}" y2="${tY1.toFixed(1)}" stroke="var(--accent2)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/><line x1="${PL}" y1="${avgY.toFixed(1)}" x2="${W-PR}" y2="${avgY.toFixed(1)}" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/><text x="${(W-PR+2).toFixed(1)}" y="${(avgY+4).toFixed(1)}" font-size="8" fill="var(--warn)">avg</text><polyline points="${poly}" fill="none" stroke="var(--accent3)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${xlbl}</svg>`;
   const tc=sl>0?'var(--done)':sl<0?'var(--todo)':'var(--muted)',td=sl>0?'↑ Trending up':sl<0?'↓ Trending down':'→ Flat';
-  return`<div class="card" style="margin-bottom:12px;padding:14px 14px 10px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">Last 7 Days</div><div style="display:flex;gap:12px;font-size:.6rem"><span style="color:var(--accent3)">● Study time</span><span style="color:var(--warn)">— Avg (${fmtHM(avg)||'0m'})</span><span style="color:${tc}">${td}</span></div></div><div style="overflow-x:auto">${svg}</div></div>`;
+  return`<div class="card" style="margin-bottom:12px;padding:14px 14px 10px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)">${label}</div><div style="display:flex;gap:12px;font-size:.6rem"><span style="color:var(--accent3)">● Study time</span><span style="color:var(--warn)">— Avg (${fmtHM(avg)||'0m'})</span><span style="color:${tc}">${td}</span></div></div><div style="overflow-x:auto">${svg}</div></div>`;
 }
 
 /* ─── DASHBOARD ─── */
@@ -1740,6 +1845,24 @@ setTimeout(()=>{
 /* ─── POMODORO ─── */
 let pomoSettings = JSON.parse(localStorage.getItem('finalsPomo')||'null') || {focus:25, brk:5};
 let pomoState = {running:false, mode:'focus', remaining:0, handle:null, sessions:0};
+let _pdfObjectUrl = null;
+let _pdfReaderHandle = null;
+let _preloadedPdf = null; // {name, url} — loaded before session starts
+
+function preloadBreakPdf(event){
+  const file = event.target.files?.[0];
+  event.target.value = '';
+  if(!file) return;
+  if(_preloadedPdf) URL.revokeObjectURL(_preloadedPdf.url);
+  _preloadedPdf = {name: file.name, url: URL.createObjectURL(file)};
+  renderPomo();
+  toast('📄 PDF ready for your break: ' + file.name);
+}
+
+function clearPreloadedPdf(){
+  if(_preloadedPdf){ URL.revokeObjectURL(_preloadedPdf.url); _preloadedPdf = null; }
+  renderPomo();
+}
 
 function pomoInit(){
   pomoState.remaining = pomoSettings.focus * 60;
@@ -1761,20 +1884,29 @@ function pomoToggle(){
       if(pomoState.remaining > 0){
         pomoState.remaining--;
         renderPomo();
+        // update PDF reader timer if open
+        if(document.getElementById('pdfReaderOverlay').classList.contains('open')){
+          const m=Math.floor(pomoState.remaining/60), s=pomoState.remaining%60;
+          document.getElementById('pdfReaderTimer').textContent = 'Break: '+pad(m)+':'+pad(s);
+        }
       } else {
         clearInterval(pomoState.handle);
         pomoState.running = false;
         if(pomoState.mode === 'focus'){
           pomoState.sessions++;
-          toast('🍅 Focus session done! Take a break.');
           pomoState.mode = 'break';
           pomoState.remaining = pomoSettings.brk * 60;
+          renderPomo();
+          // Show break prompt
+          showBreakPrompt();
         } else {
+          // Break ended — close PDF reader if open
+          closePdfReaderOnBreakEnd();
           toast('☕ Break over! Ready to focus?');
           pomoState.mode = 'focus';
           pomoState.remaining = pomoSettings.focus * 60;
+          renderPomo();
         }
-        renderPomo();
       }
     }, 1000);
   }
@@ -1788,6 +1920,9 @@ function pomoReset(){
   pomoState.mode = 'focus';
   pomoState.remaining = pomoSettings.focus * 60;
   pomoState.sessions = 0;
+  closePdfReaderOnBreakEnd();
+  hideBreakPrompt();
+  if(_preloadedPdf){ URL.revokeObjectURL(_preloadedPdf.url); _preloadedPdf = null; }
   renderPomo();
 }
 
@@ -1801,6 +1936,9 @@ function savePomo(){
   pomoState.mode = 'focus';
   pomoState.remaining = f * 60;
   pomoState.sessions = 0;
+  closePdfReaderOnBreakEnd();
+  hideBreakPrompt();
+  if(_preloadedPdf){ URL.revokeObjectURL(_preloadedPdf.url); _preloadedPdf = null; }
   renderPomo();
   toast('✓ Pomodoro settings saved');
 }
@@ -1833,8 +1971,84 @@ function renderPomo(){
       </button>
       <button class="btn" onclick="pomoReset()">↺ Reset</button>
     </div>
+    ${isFocus&&!pomoState.running?`
+    <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+      <div class="section-label" style="margin-bottom:6px">📄 Break PDF</div>
+      ${_preloadedPdf
+        ? `<div style="display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:8px">
+             <span style="font-size:.85rem">📄</span>
+             <span style="flex:1;font-size:.72rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--done)">${hh(_preloadedPdf.name)}</span>
+             <button class="btn sm" style="color:var(--accent2);border-color:var(--accent2);padding:2px 8px" onclick="clearPreloadedPdf()">✕</button>
+           </div>`
+        : `<div style="font-size:.65rem;color:var(--muted);margin-bottom:6px">Add a PDF to read during your break — it'll open automatically when focus ends.</div>`
+      }
+      <label style="display:block;width:100%">
+        <input type="file" id="pdfPreloadInput" accept=".pdf" style="display:none" onchange="preloadBreakPdf(event)">
+        <button class="btn" style="width:100%" onclick="document.getElementById('pdfPreloadInput').click()">${_preloadedPdf?'📄 Change PDF':'📄 Add break PDF'}</button>
+      </label>
+    </div>`:``}
+    ${!isFocus&&!pomoState.running?`<button class="btn sm" style="margin-top:10px;width:100%" onclick="document.getElementById('pdfFileInput').click()">📄 Open PDF for break</button>`:``}
   </div>`;
   document.querySelectorAll('.pomo-display').forEach(el=>el.innerHTML=html);
+}
+
+/* ─── BREAK PDF READER ─── */
+function showBreakPrompt(){
+  // If a PDF was preloaded before the session, open it automatically — no prompt needed
+  if(_preloadedPdf){
+    openPdfReader(_preloadedPdf.url, _preloadedPdf.name);
+    _preloadedPdf = null; // consumed — clear for next session
+    pomoToggle(); // start break timer
+    return;
+  }
+  // Otherwise show the pick-or-skip prompt
+  const sub = document.querySelector('.pdf-break-sub');
+  if(sub) sub.innerHTML = `Break time: <strong>${pomoSettings.brk} min</strong><br>Want to read a PDF during your break?`;
+  document.getElementById('pdfBreakPrompt').classList.add('open');
+}
+function hideBreakPrompt(){
+  document.getElementById('pdfBreakPrompt').classList.remove('open');
+}
+function skipPdfBreak(){
+  hideBreakPrompt();
+  toast('☕ Enjoy your break!');
+  // Auto-start break timer
+  pomoToggle();
+}
+
+function openPdfReader(url, name){
+  if(_pdfObjectUrl && _pdfObjectUrl !== url) URL.revokeObjectURL(_pdfObjectUrl);
+  _pdfObjectUrl = url;
+  document.getElementById('pdfReaderTitle').textContent = name;
+  const m=Math.floor(pomoState.remaining/60), s=pomoState.remaining%60;
+  document.getElementById('pdfReaderTimer').textContent = 'Break: '+pad(m)+':'+pad(s);
+  document.getElementById('pdfReaderBody').innerHTML =
+    `<iframe src="${_pdfObjectUrl}" title="${hh(name)}"></iframe>`;
+  document.getElementById('pdfReaderOverlay').classList.add('open');
+}
+
+function loadBreakPdf(event){
+  hideBreakPrompt();
+  const file = event.target.files?.[0];
+  event.target.value = '';
+  if(!file){ pomoToggle(); return; }
+  const url = URL.createObjectURL(file);
+  openPdfReader(url, file.name);
+  pomoToggle(); // start break timer
+}
+
+function closePdfReader(){
+  document.getElementById('pdfReaderOverlay').classList.remove('open');
+  document.getElementById('pdfReaderBody').innerHTML =
+    `<div class="pdf-empty"><div class="pdf-empty-icon">📄</div><div class="pdf-empty-text">No PDF loaded.</div></div>`;
+  if(_pdfObjectUrl){ URL.revokeObjectURL(_pdfObjectUrl); _pdfObjectUrl=null; }
+}
+
+function closePdfReaderOnBreakEnd(){
+  if(document.getElementById('pdfReaderOverlay').classList.contains('open')){
+    closePdfReader();
+    // Show a toast — the break-over toast fires from the caller
+  }
 }
 </script>
 </body>
