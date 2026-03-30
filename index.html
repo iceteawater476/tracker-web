@@ -32,6 +32,7 @@
 html.light{--bg:#f5f3ef;--bg2:#ede9e3;--sur:#fff;--sur2:#f0ece6;--sur3:#e8e3dc;--brd:#ddd8d0;--brd2:#ccc6bc;--ink:#1a1814;--ink2:#6a6460;--ink3:#aaa098;--acc:#9a6f35;--acc-d:rgba(154,111,53,.1);--acc-g:rgba(154,111,53,.15)}
 html.slate{--bg:#0d1117;--bg2:#111820;--sur:#161d27;--sur2:#1c2533;--sur3:#22303f;--brd:#28394a;--brd2:#324558;--acc:#6b9fd4;--acc-d:rgba(107,159,212,.12);--acc-g:rgba(107,159,212,.2)}
 html.sage{--bg:#0c100d;--bg2:#111612;--sur:#171d18;--sur2:#1e251f;--sur3:#252d26;--brd:#2a342b;--brd2:#334036;--acc:#7ab88a;--acc-d:rgba(122,184,138,.12);--acc-g:rgba(122,184,138,.2)}
+html.neon{--bg:#0d0d12;--bg2:#111118;--sur:#16161e;--sur2:#1c1c26;--sur3:#22222e;--brd:#2c2c3e;--brd2:#3a3a52;--ink:#f0eeff;--ink2:#9090b8;--ink3:#505068;--acc:#e040fb;--acc-d:rgba(224,64,251,.12);--acc-g:rgba(224,64,251,.22);--grn:#00e5c0;--grn-d:rgba(0,229,192,.1);--amb:#ffb938;--amb-d:rgba(255,185,56,.1);--red:#ff4d6d;--red-d:rgba(255,77,109,.1);--blu:#4da6ff;--blu-d:rgba(77,166,255,.1)}
 
 /* ─── reset ─── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -87,6 +88,7 @@ input,select,textarea{font-family:var(--fb);outline:none}
 /* views inside main — only .active shows */
 .view{display:none}
 .view.active{display:block}
+#pcView-pdf.active{display:flex;flex-direction:column}
 
 /* ─── Mobile screens ─── */
 #mob-body{
@@ -303,13 +305,13 @@ textarea.field{resize:vertical;min-height:66px}
 .pomo-stage{position:relative;width:190px;height:190px;margin:0 auto 14px}
 .pomo-stage svg{position:absolute;inset:0;overflow:visible}
 /* breathing glow animation */
-@keyframes breathe{0%,100%{opacity:.25;r:74}50%{opacity:.55;r:82}}
-@keyframes breathe-run{0%,100%{opacity:.35;r:76}50%{opacity:.7;r:86}}
+@keyframes breathe{0%,100%{opacity:.12}50%{opacity:.28}}
+@keyframes breathe-run{0%,100%{opacity:.18}50%{opacity:.38}}
 @keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .pomo-glow{transform-origin:95px 95px}
 .pomo-ring-bg{fill:none;stroke:var(--brd);stroke-width:7}
 .pomo-ring-track{fill:none;stroke:var(--sur3);stroke-width:7}
-.pomo-ring-fill{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1s ease,stroke .4s}
+.pomo-ring-fill{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s ease,stroke .4s}
 .pomo-ring-time{font-family:var(--fm);font-size:1.5rem;font-weight:500;text-anchor:middle;dominant-baseline:central;transition:fill .4s}
 .pomo-ring-label{font-size:.46rem;text-anchor:middle;text-transform:uppercase;letter-spacing:.16em;fill:var(--ink3)}
 /* center info */
@@ -319,8 +321,8 @@ textarea.field{resize:vertical;min-height:66px}
 /* session flames */
 .pomo-flames{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:14px;min-height:22px}
 .pomo-flame{font-size:1.05rem;transition:transform .2s,filter .2s;filter:saturate(.3)}
-.pomo-flame.lit{filter:saturate(1) drop-shadow(0 0 4px rgba(255,160,50,.6));animation:flicker .8s ease-in-out infinite alternate}
-@keyframes flicker{0%{transform:scale(1) rotate(-2deg)}100%{transform:scale(1.12) rotate(2deg)}}
+.pomo-flame.lit{filter:saturate(.9);animation:flicker 2.5s ease-in-out infinite alternate}
+@keyframes flicker{0%{transform:scale(1)}100%{transform:scale(1.06)}}
 /* streak badge */
 .pomo-streak{font-size:.68rem;font-weight:600;color:var(--amb);background:var(--amb-d);border:1px solid rgba(212,149,58,.3);border-radius:99px;padding:3px 10px;display:inline-flex;align-items:center;gap:4px;margin-bottom:14px}
 /* action buttons */
@@ -352,6 +354,27 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
 .pdf-file-row{display:flex;align-items:center;gap:8px;background:var(--sur2);border:1px solid var(--brd);border-radius:var(--r);padding:7px 11px;margin-bottom:7px}
 .pdf-fname{flex:1;font-size:.73rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--grn)}
 
+
+
+/* ── PDF Viewer panel ── */
+.pdf-viewer-toolbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--sur);border:1px solid var(--brd);border-radius:var(--rl);margin-bottom:12px;flex-wrap:wrap}
+.pdf-viewer-name{flex:1;font-size:.8rem;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.pdf-viewer-frame{width:100%;border:1px solid var(--brd);border-radius:var(--rl);overflow:hidden;background:var(--sur2)}
+.pdf-viewer-frame iframe{display:block;width:100%;border:none}
+.pdf-drop-zone{border:2px dashed var(--brd);border-radius:var(--rx);padding:52px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--sur)}
+.pdf-drop-zone:hover,.pdf-drop-zone.drag-over{border-color:var(--acc);background:var(--acc-d)}
+.pdf-drop-ico{font-size:2.2rem;margin-bottom:12px;opacity:.5}
+.pdf-drop-title{font-size:.95rem;font-weight:500;color:var(--ink2);margin-bottom:6px}
+.pdf-drop-sub{font-size:.78rem;color:var(--ink3)}
+/* ── Neon theme extras ── */
+html.neon #topbar{background:var(--bg);border-bottom-color:var(--brd);box-shadow:0 1px 0 0 rgba(224,64,251,.15)}
+html.neon #sidebar{background:var(--bg2)}
+html.neon .wordmark{letter-spacing:.02em}
+html.neon .wordmark span{text-shadow:0 0 12px rgba(224,64,251,.6)}
+html.neon .snav-btn.active{box-shadow:inset 2px 0 0 var(--acc)}
+html.neon .btn-p{box-shadow:0 0 12px rgba(224,64,251,.25)}
+html.neon .pomo-ring-fill{filter:drop-shadow(0 0 3px rgba(224,64,251,.4))}
+html.neon .dash-hero::before{background:radial-gradient(ellipse at 110% 0%,rgba(224,64,251,.12),transparent 55%)}
 /* ─── Subjects ─── */
 .subj-card{background:var(--sur);border:1px solid var(--brd);border-radius:var(--rl);padding:15px;margin-bottom:9px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:border-color .14s}
 .subj-card:hover{border-color:var(--brd2)}
@@ -545,6 +568,7 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
         <button class="snav-btn" id="snav-subjects" onclick="pcTab('subjects')"><span class="snav-ico">◫</span> Subjects</button>
         <button class="snav-btn" id="snav-grades"   onclick="pcTab('grades')">  <span class="snav-ico">◎</span> Grades</button>
         <button class="snav-btn" id="snav-history"  onclick="pcTab('history')"> <span class="snav-ico">◰</span> History</button>
+        <button class="snav-btn" id="snav-pdf"     onclick="pcTab('pdf')">     <span class="snav-ico">◱</span> PDF Reader</button>
         <div class="snav-div"></div>
       </div>
       <div id="sidebar-subjs" id="pcSidebarSubjects"></div>
@@ -631,6 +655,17 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
         <div class="view-hdr"><div><div class="view-title">History</div><div class="view-sub">All logged study sessions</div></div></div>
         <div id="pcHistoryFullContent"></div>
       </div>
+
+      <div class="view" id="pcView-pdf" style="height:100%">
+        <div class="view-hdr">
+          <div><div class="view-title">PDF Reader</div><div class="view-sub">Open and read documents</div></div>
+          <label style="cursor:pointer">
+            <input type="file" id="pcPdfInput" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)">
+            <span class="btn btn-p" onclick="document.getElementById('pcPdfInput').click()">Open PDF</span>
+          </label>
+        </div>
+        <div id="pcPdfArea" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
+      </div>
     </div><!-- /#main -->
 
     <!-- ── Mobile Body ── -->
@@ -696,6 +731,17 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
           <div class="view-title" style="margin-bottom:14px">History</div>
           <div id="mobHistoryContent"></div>
         </div>
+
+        <div class="screen" id="mob-pdf">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <div class="view-title">PDF Reader</div>
+            <label style="cursor:pointer">
+              <input type="file" id="mobPdfInput" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)">
+              <button class="btn btn-p btn-sm" onclick="document.getElementById('mobPdfInput').click()">Open PDF</button>
+            </label>
+          </div>
+          <div id="mobPdfArea" style="display:flex;flex-direction:column;gap:10px"></div>
+        </div>
       </div><!-- /#mob-screens -->
 
       <div id="mob-nav">
@@ -704,6 +750,7 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
         <button class="bnav-btn" id="mnav-subjects" onclick="mobTab('subjects')"><span class="bnav-ico">◫</span>Subjects</button>
         <button class="bnav-btn" id="mnav-grades"   onclick="mobTab('grades')">  <span class="bnav-ico">◎</span>Grades</button>
         <button class="bnav-btn" id="mnav-history"  onclick="mobTab('history')"> <span class="bnav-ico">◰</span>History</button>
+        <button class="bnav-btn" id="mnav-pdf"      onclick="mobTab('pdf')">     <span class="bnav-ico">◱</span>PDF</button>
       </div>
     </div><!-- /#mob-body -->
 
@@ -846,6 +893,7 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
         <div class="theme-opt" id="theme-light" onclick="setTheme('light')"><div class="theme-opt-name">Light</div><div class="theme-opt-desc">Warm parchment</div><div class="theme-swatches"><span style="background:#f5f3ef;border:1px solid #ddd8d0"></span><span style="background:#9a6f35"></span><span style="background:#5dbf8a"></span><span style="background:#e06060"></span></div></div>
         <div class="theme-opt" id="theme-slate" onclick="setTheme('slate')"><div class="theme-opt-name">Slate</div><div class="theme-opt-desc">Blue-grey, cool</div><div class="theme-swatches"><span style="background:#0d1117;border:1px solid #28394a"></span><span style="background:#6b9fd4"></span><span style="background:#5dbf8a"></span><span style="background:#e06060"></span></div></div>
         <div class="theme-opt" id="theme-sage" onclick="setTheme('sage')"><div class="theme-opt-name">Sage</div><div class="theme-opt-desc">Deep green</div><div class="theme-swatches"><span style="background:#0c100d;border:1px solid #2a342b"></span><span style="background:#7ab88a"></span><span style="background:#5dbf8a"></span><span style="background:#e06060"></span></div></div>
+        <div class="theme-opt" id="theme-neon" onclick="setTheme('neon')"><div class="theme-opt-name">Neon ✦</div><div class="theme-opt-desc">Electric magenta</div><div class="theme-swatches"><span style="background:#0d0d12;border:1px solid #2c2c3e"></span><span style="background:#e040fb"></span><span style="background:#00e5c0"></span><span style="background:#ff4d6d"></span></div></div>
       </div>
     </div>
     <div class="settings-sec">
@@ -1255,6 +1303,7 @@ function pcTab(tab){
   if(tab==='grades') renderGrades('pc');
   if(tab==='dashboard') renderDash();
   if(tab==='timer') setTimeout(renderPomo,0);
+  if(tab==='pdf') renderPdfViewer('pc');
 }
 function mobTab(tab){
   if(mobTab_current==='topics'&&tab!=='topics') document.getElementById('mob-topics').classList.remove('active');
@@ -1267,6 +1316,7 @@ function mobTab(tab){
   if(tab==='grades') renderGrades('mob');
   if(tab==='dashboard') renderDash();
   if(tab==='timer') setTimeout(renderPomo,0);
+  if(tab==='pdf') renderPdfViewer('mob');
 }
 
 /* ── Subjects ── */
@@ -1755,7 +1805,7 @@ function renderPomo(){
   // motivational msg
   const msg=getPomoMsg(pomoState.mode,pomoState.running);
   // glow animation
-  const glowAnim=pomoState.running?'breathe-run 3s ease-in-out infinite':'breathe 4s ease-in-out infinite';
+  const glowAnim=pomoState.running?'breathe-run 6s ease-in-out infinite':'breathe 8s ease-in-out infinite';
 
   const html=`<div class="pomo-wrap">
     <div class="pomo-mode-pill" style="background:rgba(${colRaw},.12);color:${col};border:1px solid rgba(${colRaw},.3)">
@@ -1841,6 +1891,52 @@ function openPdfReader(url,name){
 }
 function closePdfReader(){ document.getElementById('pdfReaderOverlay').classList.remove('open'); document.getElementById('pdfReaderBody').innerHTML='<div class="empty"><div class="empty-ico">📄</div><div class="empty-ttl">No PDF loaded</div></div>'; if(_pdfObjectUrl){ URL.revokeObjectURL(_pdfObjectUrl); _pdfObjectUrl=null; } }
 function closePdfReaderOnBreakEnd(){ if(document.getElementById('pdfReaderOverlay').classList.contains('open')) closePdfReader(); }
+
+
+/* ── PDF Viewer ── */
+let _pdfViewerUrl=null, _pdfViewerName=null;
+function openPdfViewer(event){
+  const file=event.target.files?.[0]; event.target.value=''; if(!file) return;
+  if(_pdfViewerUrl) URL.revokeObjectURL(_pdfViewerUrl);
+  _pdfViewerUrl=URL.createObjectURL(file); _pdfViewerName=file.name;
+  renderPdfViewer('pc'); renderPdfViewer('mob');
+  // switch to pdf tab
+  if(window.innerWidth>=768) pcTab('pdf'); else mobTab('pdf');
+  toast('📄 '+file.name);
+}
+function closePdfViewer(){
+  if(_pdfViewerUrl){ URL.revokeObjectURL(_pdfViewerUrl); _pdfViewerUrl=null; _pdfViewerName=null; }
+  renderPdfViewer('pc'); renderPdfViewer('mob');
+}
+function renderPdfViewer(ctx){
+  const areaId=ctx==='pc'?'pcPdfArea':'mobPdfArea';
+  const el=document.getElementById(areaId); if(!el) return;
+  if(!_pdfViewerUrl){
+    el.innerHTML=`<div class="pdf-drop-zone" id="pdfDropZone-${ctx}" onclick="document.getElementById('${ctx==='pc'?'pcPdfInput':'mobPdfInput'}').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handlePdfDrop(event,'${ctx}')">
+      <div class="pdf-drop-ico">📄</div>
+      <div class="pdf-drop-title">Open a PDF</div>
+      <div class="pdf-drop-sub">Click to browse, or drag and drop a file here</div>
+    </div>`;
+    return;
+  }
+  const h=ctx==='pc'?'calc(100vh - 180px)':'70vh';
+  el.innerHTML=`<div class="pdf-viewer-toolbar">
+    <span style="font-size:1.1rem">📄</span>
+    <span class="pdf-viewer-name">${hh(_pdfViewerName)}</span>
+    <label style="cursor:pointer"><input type="file" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)"><button class="btn btn-sm" onclick="this.previousElementSibling.click()">Change</button></label>
+    <button class="btn btn-sm btn-danger" onclick="closePdfViewer()">✕ Close</button>
+  </div>
+  <div class="pdf-viewer-frame" style="flex:1;min-height:0;height:${h}">
+    <iframe src="${_pdfViewerUrl}" title="${hh(_pdfViewerName)}" style="height:${h}"></iframe>
+  </div>`;
+}
+function handlePdfDrop(event,ctx){
+  event.preventDefault(); document.getElementById('pdfDropZone-'+ctx)?.classList.remove('drag-over');
+  const file=event.dataTransfer.files?.[0]; if(!file||!file.name.match(/\.pdf$/i)) return;
+  if(_pdfViewerUrl) URL.revokeObjectURL(_pdfViewerUrl);
+  _pdfViewerUrl=URL.createObjectURL(file); _pdfViewerName=file.name;
+  renderPdfViewer(ctx); toast('📄 '+file.name);
+}
 
 /* ── App init ── */
 function initApp(){
