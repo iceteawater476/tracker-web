@@ -359,8 +359,8 @@ input[type=range].noise-vol::-moz-range-thumb{width:14px;height:14px;border-radi
 /* ── PDF Viewer panel ── */
 .pdf-viewer-toolbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--sur);border:1px solid var(--brd);border-radius:var(--rl);margin-bottom:12px;flex-wrap:wrap}
 .pdf-viewer-name{flex:1;font-size:.8rem;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.pdf-viewer-frame{width:100%;border:1px solid var(--brd);border-radius:var(--rl);overflow:hidden;background:var(--sur2)}
-.pdf-viewer-frame iframe{display:block;width:100%;border:none}
+.pdf-viewer-frame{flex:1;min-height:0;border:1px solid var(--brd);border-radius:var(--rl);overflow:hidden;background:var(--sur2);display:flex;flex-direction:column}
+.pdf-viewer-frame iframe{display:block;width:100%;flex:1;min-height:300px;border:none}
 .pdf-drop-zone{border:2px dashed var(--brd);border-radius:var(--rx);padding:52px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--sur)}
 .pdf-drop-zone:hover,.pdf-drop-zone.drag-over{border-color:var(--acc);background:var(--acc-d)}
 .pdf-drop-ico{font-size:2.2rem;margin-bottom:12px;opacity:.5}
@@ -660,11 +660,10 @@ html.neon .dash-hero::before{background:radial-gradient(ellipse at 110% 0%,rgba(
         <div class="view-hdr">
           <div><div class="view-title">PDF Reader</div><div class="view-sub">Open and read documents</div></div>
           <label style="cursor:pointer">
-            <input type="file" id="pcPdfInput" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)">
-            <span class="btn btn-p" onclick="document.getElementById('pcPdfInput').click()">Open PDF</span>
+            <button class="btn btn-p" onclick="triggerPdfPicker('pc')">Open PDF</button>
           </label>
         </div>
-        <div id="pcPdfArea" style="flex:1;min-height:0;display:flex;flex-direction:column"></div>
+        <div id="pcPdfArea" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden"></div>
       </div>
     </div><!-- /#main -->
 
@@ -736,8 +735,7 @@ html.neon .dash-hero::before{background:radial-gradient(ellipse at 110% 0%,rgba(
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
             <div class="view-title">PDF Reader</div>
             <label style="cursor:pointer">
-              <input type="file" id="mobPdfInput" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)">
-              <button class="btn btn-p btn-sm" onclick="document.getElementById('mobPdfInput').click()">Open PDF</button>
+              <button class="btn btn-p btn-sm" onclick="triggerPdfPicker('mob')">Open PDF</button>
             </label>
           </div>
           <div id="mobPdfArea" style="display:flex;flex-direction:column;gap:10px"></div>
@@ -916,10 +914,20 @@ html.neon .dash-hero::before{background:radial-gradient(ellipse at 110% 0%,rgba(
     </div>
     <div class="settings-sec">
       <div class="settings-sec-lbl">Data Backup</div>
-      <p style="font-size:.76rem;color:var(--ink2);margin-bottom:11px">Export or import your data as JSON.</p>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-p" style="flex:1" onclick="exportData()">Export</button>
-        <button class="btn" style="flex:1" onclick="document.getElementById('importFileInput').click()">Import</button>
+      <p style="font-size:.76rem;color:var(--ink2);margin-bottom:11px">Export your data as JSON or CSV, or restore from a backup.</p>
+      <div style="margin-bottom:8px">
+        <div style="font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:6px">JSON Backup</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-p" style="flex:1" onclick="exportData()">Export JSON</button>
+          <button class="btn" style="flex:1" onclick="document.getElementById('importFileInput').click()">Import JSON</button>
+        </div>
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:6px">CSV Export</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" style="flex:1" onclick="exportCsvHistory()">History only</button>
+          <button class="btn" style="flex:1" onclick="exportCsvAll()">All data</button>
+        </div>
       </div>
       <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="importData(event)">
       <div id="importStatus" style="font-size:.72rem;color:var(--grn);margin-top:7px;display:none"></div>
@@ -1624,6 +1632,52 @@ function importData(event){
   reader.readAsText(file);
 }
 
+/* ── CSV Export ── */
+function _dlCsv(filename, rows){
+  const csv=rows.map(r=>r.map(v=>{
+    const s=String(v==null?'':v);
+    return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s.replace(/"/g,'""')+'"':s;
+  }).join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);
+}
+
+function exportCsvHistory(){
+  const entries=Object.entries(data.dailyLog).sort((a,b)=>a[0].localeCompare(b[0]));
+  if(!entries.length){ toast('No history to export'); return; }
+  const rows=[['Date','Minutes','Hours']];
+  entries.forEach(([date,secs])=>{
+    rows.push([date, Math.round(secs/60), (secs/3600).toFixed(2)]);
+  });
+  _dlCsv(`study-history-${new Date().toISOString().split('T')[0]}.csv`, rows);
+  toast('History CSV exported!');
+}
+
+function exportCsvAll(){
+  const date=new Date().toISOString().split('T')[0];
+  // Sheet 1: Study History
+  const histRows=[['--- STUDY HISTORY ---'],['Date','Minutes','Hours']];
+  Object.entries(data.dailyLog).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([d,s])=>{
+    histRows.push([d,Math.round(s/60),(s/3600).toFixed(2)]);
+  });
+  // Sheet 2: Grades
+  histRows.push([],['--- GRADES ---'],['Subject','Obtained','Total','Percentage','Grade','GPA']);
+  Object.values(data.grades).forEach(g=>{
+    const pct=(g.obtained/g.total*100),gr=getGrade(pct);
+    histRows.push([g.name,g.obtained,g.total,pct.toFixed(1)+'%',gr.grade,gr.gpa.toFixed(2)]);
+  });
+  // Sheet 3: Subjects & Topics
+  histRows.push([],['--- SUBJECTS & TOPICS ---'],['Subject','Topic','Status','Priority','Note']);
+  Object.entries(data.subjects).forEach(([sname,subj])=>{
+    Object.values(subj.topics||{}).forEach(t=>{
+      histRows.push([sname,t.name,t.status||'todo',t.priority||'med',t.note||'']);
+    });
+  });
+  _dlCsv(`finals-all-data-${date}.csv`, histRows);
+  toast('All data CSV exported!');
+}
+
 /* ── Pomodoro ── */
 let pomoSettings=JSON.parse(localStorage.getItem('finalsPomo')||'null')||{focus:25,brk:5};
 let pomoState={running:false,mode:'focus',remaining:0,handle:null,sessions:0};
@@ -1895,47 +1949,78 @@ function closePdfReaderOnBreakEnd(){ if(document.getElementById('pdfReaderOverla
 
 /* ── PDF Viewer ── */
 let _pdfViewerUrl=null, _pdfViewerName=null;
-function openPdfViewer(event){
-  const file=event.target.files?.[0]; event.target.value=''; if(!file) return;
+
+function _loadPdfFile(file){
+  if(!file) return;
   if(_pdfViewerUrl) URL.revokeObjectURL(_pdfViewerUrl);
-  _pdfViewerUrl=URL.createObjectURL(file); _pdfViewerName=file.name;
-  renderPdfViewer('pc'); renderPdfViewer('mob');
-  // switch to pdf tab
-  if(window.innerWidth>=768) pcTab('pdf'); else mobTab('pdf');
-  toast('📄 '+file.name);
+  _pdfViewerUrl=URL.createObjectURL(file);
+  _pdfViewerName=file.name;
+  // navigate to pdf tab first, then render into the now-visible element
+  if(window.innerWidth>=768){ pcTab('pdf'); } else { mobTab('pdf'); }
+  // use rAF to ensure the view is shown before we inject the iframe
+  requestAnimationFrame(()=>{
+    renderPdfViewer('pc');
+    renderPdfViewer('mob');
+    toast('📄 '+file.name);
+  });
 }
+
+function openPdfViewer(event){
+  const file=event.target.files?.[0];
+  event.target.value='';
+  _loadPdfFile(file);
+}
+
+function triggerPdfPicker(which){
+  // 'which' = 'pc' or 'mob'
+  const inp=document.createElement('input');
+  inp.type='file'; inp.accept='.pdf,.PDF';
+  inp.onchange=e=>{ _loadPdfFile(e.target.files?.[0]); };
+  inp.click();
+}
+
 function closePdfViewer(){
   if(_pdfViewerUrl){ URL.revokeObjectURL(_pdfViewerUrl); _pdfViewerUrl=null; _pdfViewerName=null; }
-  renderPdfViewer('pc'); renderPdfViewer('mob');
+  renderPdfViewer('pc');
+  renderPdfViewer('mob');
 }
+
 function renderPdfViewer(ctx){
   const areaId=ctx==='pc'?'pcPdfArea':'mobPdfArea';
-  const el=document.getElementById(areaId); if(!el) return;
+  const el=document.getElementById(areaId);
+  if(!el) return;
+
   if(!_pdfViewerUrl){
-    el.innerHTML=`<div class="pdf-drop-zone" id="pdfDropZone-${ctx}" onclick="document.getElementById('${ctx==='pc'?'pcPdfInput':'mobPdfInput'}').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handlePdfDrop(event,'${ctx}')">
+    el.innerHTML=`<div class="pdf-drop-zone"
+        onclick="triggerPdfPicker('${ctx}')"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="handlePdfDrop(event,'${ctx}')">
       <div class="pdf-drop-ico">📄</div>
       <div class="pdf-drop-title">Open a PDF</div>
-      <div class="pdf-drop-sub">Click to browse, or drag and drop a file here</div>
+      <div class="pdf-drop-sub">Click to browse, or drag &amp; drop a file here</div>
     </div>`;
     return;
   }
-  const h=ctx==='pc'?'calc(100vh - 180px)':'70vh';
+
+  // Build viewer — iframe fills remaining space
   el.innerHTML=`<div class="pdf-viewer-toolbar">
-    <span style="font-size:1.1rem">📄</span>
+    <span style="font-size:1rem;flex-shrink:0">📄</span>
     <span class="pdf-viewer-name">${hh(_pdfViewerName)}</span>
-    <label style="cursor:pointer"><input type="file" accept=".pdf,.PDF" style="display:none" onchange="openPdfViewer(event)"><button class="btn btn-sm" onclick="this.previousElementSibling.click()">Change</button></label>
-    <button class="btn btn-sm btn-danger" onclick="closePdfViewer()">✕ Close</button>
+    <button class="btn btn-sm" onclick="triggerPdfPicker('${ctx}')">Change</button>
+    <button class="btn btn-sm btn-danger" onclick="closePdfViewer()">✕</button>
   </div>
-  <div class="pdf-viewer-frame" style="flex:1;min-height:0;height:${h}">
-    <iframe src="${_pdfViewerUrl}" title="${hh(_pdfViewerName)}" style="height:${h}"></iframe>
+  <div class="pdf-viewer-frame">
+    <iframe src="${_pdfViewerUrl}#toolbar=1&view=FitH" title="${hh(_pdfViewerName)}"></iframe>
   </div>`;
 }
+
 function handlePdfDrop(event,ctx){
-  event.preventDefault(); document.getElementById('pdfDropZone-'+ctx)?.classList.remove('drag-over');
-  const file=event.dataTransfer.files?.[0]; if(!file||!file.name.match(/\.pdf$/i)) return;
-  if(_pdfViewerUrl) URL.revokeObjectURL(_pdfViewerUrl);
-  _pdfViewerUrl=URL.createObjectURL(file); _pdfViewerName=file.name;
-  renderPdfViewer(ctx); toast('📄 '+file.name);
+  event.preventDefault();
+  event.currentTarget.classList.remove('drag-over');
+  const file=event.dataTransfer.files?.[0];
+  if(!file||!file.name.match(/\.pdf$/i)){ toast('Please drop a PDF file'); return; }
+  _loadPdfFile(file);
 }
 
 /* ── App init ── */
