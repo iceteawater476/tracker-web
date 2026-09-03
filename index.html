@@ -859,6 +859,7 @@ html.neon .dash-hero{box-shadow:0 0 40px -6px var(--acc-g)}
     <div class="color-grid" id="colorGrid"></div>
     <div style="margin-top:20px;display:flex;flex-direction:column;gap:7px">
       <button class="btn btn-lg" id="archiveBtn" onclick="toggleArchiveSubject()">Archive Subject</button>
+      <button class="btn btn-lg btn-danger" onclick="deleteFromSubjectOptions()">Delete Subject</button>
       <button class="btn btn-lg btn-ghost" onclick="closeSubjectOptions()" style="color:var(--ink2)">Done</button>
     </div>
   </div>
@@ -1371,9 +1372,11 @@ function addSubject(){
 }
 function delSubject(name){
   if(!confirm('Delete "'+name+'" and all its topics?')) return;
+  const wasActive=activeSubject===name;
   delete data.subjects[name]; save();
-  if(activeSubject===name){ activeSubject=null; }
+  if(wasActive){ activeSubject=null; }
   renderSubjects();
+  if(!wasActive) return;
   if(isMob()){ document.getElementById('mob-topics').classList.remove('active'); mobTab('subjects'); }
   else document.getElementById('pcTopicsContent').innerHTML='<div class="empty"><div class="empty-ico">◫</div><div class="empty-ttl">Select a subject</div></div>';
 }
@@ -1388,6 +1391,12 @@ function openSubjectOptions(name){
   document.getElementById('subjectOptionsModal').classList.add('open');
 }
 function closeSubjectOptions(){ document.getElementById('subjectOptionsModal').classList.remove('open'); subjectOptionsTarget=null; }
+function deleteFromSubjectOptions(){
+  if(!subjectOptionsTarget) return;
+  const name=subjectOptionsTarget;
+  closeSubjectOptions();
+  delSubject(name);
+}
 function setSubjectColor(color){
   if(!subjectOptionsTarget||!data.subjects[subjectOptionsTarget]) return;
   data.subjects[subjectOptionsTarget].color=color; save(); renderSubjects();
