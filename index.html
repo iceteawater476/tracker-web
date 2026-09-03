@@ -1031,7 +1031,15 @@ function mergeData(cloud,localMain,localGrading){
 }
 async function saveCloud(){
   const doc=getUserDoc(); if(!doc)return;
-  try{ setSyncDot('syncing'); await doc.set({main:data,grading:gradingSystem,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true}); setSyncDot('done'); }
+  // mergeFields (not a plain {merge:true}) fully replaces the "main" and
+  // "grading" fields with the current local data on every save. A plain
+  // {merge:true} does a recursive deep-merge of nested maps -- it only
+  // ever adds/overwrites keys and never removes one that's missing, so a
+  // deleted subject would keep quietly surviving in Firestore and come
+  // back on the next load. mergeFields replaces those fields wholesale
+  // while still leaving unrelated top-level fields (like transferDone)
+  // untouched.
+  try{ setSyncDot('syncing'); await doc.set({main:data,grading:gradingSystem,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{mergeFields:['main','grading','updatedAt']}); setSyncDot('done'); }
   catch(e){ console.error('Cloud save error:',e); setSyncDot('error'); }
 }
 function scheduleSave(){ if(useCloud){ clearTimeout(saveCloudDebounce); saveCloudDebounce=setTimeout(saveCloud,1500); } }
