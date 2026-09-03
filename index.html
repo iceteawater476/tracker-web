@@ -897,6 +897,17 @@ html.neon .dash-hero{box-shadow:0 0 40px -6px var(--acc-g)}
       <button class="btn btn-p full" onclick="savePomo()">Save Pomodoro Settings</button>
     </div>
     <div class="settings-sec">
+      <div class="settings-sec-lbl">ESP32 OLED Display</div>
+      <div style="font-size:.7rem;color:var(--ink2);margin-bottom:9px;line-height:1.5">Mirror the Pomodoro countdown on your ESP32 OLED panel. Enter its IP address (shown on the OLED at boot, or in its Serial Monitor).</div>
+      <label class="field-lbl">Device IP address</label>
+      <input class="field" type="text" id="esp32IpInput" placeholder="e.g. 192.168.1.42" style="margin-bottom:9px" inputmode="decimal">
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="saveEsp32Ip()">Connect</button>
+        <button class="btn btn-danger" onclick="disconnectEsp32()">Disconnect</button>
+      </div>
+      <div id="esp32StatusLine" style="font-size:.68rem;color:var(--ink3);margin-top:9px"></div>
+    </div>
+    <div class="settings-sec">
       <div class="settings-sec-lbl">Study Goals</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px">
         <div><label class="field-lbl">Daily (hours)</label><input class="field" type="number" id="goalDaily" min="0.5" max="24" step="0.5" placeholder="4"></div>
@@ -1698,6 +1709,71 @@ function exportCsvAll(){
   toast('All data CSV exported!');
 }
 
+/* ── ESP32 OLED sync ── */
+let esp32IP=localStorage.getItem('esp32OledIp')||'';
+let _esp32TickCount=0;
+
+function saveEsp32Ip(){
+  const v=(document.getElementById('esp32IpInput')?.value||'').trim();
+  if(!v){ toast('Enter the device IP address first'); return; }
+  esp32IP=v.replace(/^https?:\/\//i,'').replace(/\/$/,'');
+  localStorage.setItem('esp32OledIp',esp32IP);
+  esp32PushPomoConfig();
+  esp32SyncPomo();
+  renderEsp32Status();
+  toast('Connecting to ESP32 OLED…');
+}
+function disconnectEsp32(){
+  esp32IP=''; localStorage.removeItem('esp32OledIp');
+  const ei=document.getElementById('esp32IpInput'); if(ei) ei.value='';
+  renderEsp32Status();
+  toast('ESP32 OLED disconnected');
+}
+async function renderEsp32Status(){
+  const el=document.getElementById('esp32StatusLine'); if(!el) return;
+  if(!esp32IP){ el.textContent='Not connected.'; return; }
+  el.textContent=`Connecting to ${esp32IP}…`;
+  const ok=await esp32Post('/mode',{mode:'pomodoro'});
+  el.innerHTML=ok
+    ?`<span style="color:var(--grn)">● Connected</span> to ${hh(esp32IP)}`
+    :`<span style="color:var(--red)">● Unreachable</span> — check the IP and that you're on the same WiFi network`;
+}
+// Fire-and-forget POST to the device. Silently no-ops if no IP is set or
+// the device can't be reached (offline, wrong network, etc.) so this
+// never blocks or breaks the Pomodoro UI itself.
+async function esp32Post(path,params){
+  if(!esp32IP) return false;
+  try{
+    const res=await fetch(`http://${esp32IP}${path}`,{method:'POST',body:new URLSearchParams(params||{})});
+    return res.ok;
+  }catch(e){ return false; }
+}
+function esp32PushPomoConfig(){
+  if(!esp32IP) return;
+  // The device's break-length concept is split into short/long; this app
+  // only has one break length, so both point at the same value and the
+  // cycle count is set high enough that the device never auto-promotes
+  // to a "long" break on its own -- phase changes are always pushed
+  // explicitly from here instead.
+  esp32Post('/pomodoro/config',{work:pomoSettings.focus,shortBreak:pomoSettings.brk,longBreak:pomoSettings.brk,cycles:9999});
+}
+function esp32PomoPhase(){
+  const total=(pomoState.mode==='focus'?pomoSettings.focus:pomoSettings.brk)*60;
+  if(pomoState.running) return pomoState.mode==='focus'?'work':'short_break';
+  if(pomoState.remaining>0&&pomoState.remaining<total) return 'paused';
+  return 'idle';
+}
+function esp32SyncPomo(){
+  if(!esp32IP) return;
+  esp32Post('/pomodoro/sync',{
+    phase:esp32PomoPhase(),
+    remaining:pomoState.remaining,
+    cycle:1,
+    cyclesBeforeLong:9999,
+    totalCompleted:pomoState.sessions
+  });
+}
+
 /* ── Pomodoro ── */
 let pomoSettings=JSON.parse(localStorage.getItem('finalsPomo')||'null')||{focus:25,brk:5};
 let pomoState={running:false,mode:'focus',remaining:0,handle:null,sessions:0};
@@ -1800,19 +1876,23 @@ function renderPomoNoise(){
   });
 }
 
-function pomoInit(){ pomoState.remaining=pomoSettings.focus*60; pomoState.mode='focus'; renderPomo(); }
+function pomoInit(){ pomoState.remaining=pomoSettings.focus*60; pomoState.mode='focus'; if(esp32IP) esp32PushPomoConfig(); renderPomo(); }
 function pomoToggle(){
-  if(pomoState.running){ clearInterval(pomoState.handle); pomoState.running=false; }
+  if(pomoState.running){ clearInterval(pomoState.handle); pomoState.running=false; esp32SyncPomo(); }
   else {
     if(pomoState.remaining===0){ pomoState.mode='focus'; pomoState.remaining=pomoSettings.focus*60; }
     pomoState.running=true;
+    esp32SyncPomo();
     pomoState.handle=setInterval(()=>{
       if(pomoState.remaining>0){ pomoState.remaining--; renderPomo();
         if(document.getElementById('pdfReaderOverlay').classList.contains('open')){ const m2=Math.floor(pomoState.remaining/60),s2=pomoState.remaining%60; document.getElementById('pdfReaderTimer').textContent='Break: '+pad(m2)+':'+pad(s2); }
+        _esp32TickCount++;
+        if(esp32IP&&_esp32TickCount%5===0) esp32SyncPomo();
       } else {
         clearInterval(pomoState.handle); pomoState.running=false;
         if(pomoState.mode==='focus'){ pomoState.sessions++; pomoState.mode='break'; pomoState.remaining=pomoSettings.brk*60; renderPomo(); showBreakPrompt(); }
         else { closePdfReaderOnBreakEnd(); toast('Break over! Ready to focus?'); pomoState.mode='focus'; pomoState.remaining=pomoSettings.focus*60; renderPomo(); }
+        esp32SyncPomo();
       }
     },1000);
   }
@@ -1823,6 +1903,7 @@ function pomoReset(){
   clearInterval(pomoState.handle); pomoState.running=false; pomoState.mode='focus'; pomoState.remaining=pomoSettings.focus*60; pomoState.sessions=0;
   closePdfReaderOnBreakEnd(); hideBreakPrompt();
   if(_preloadedPdf){ URL.revokeObjectURL(_preloadedPdf.url); _preloadedPdf=null; }
+  if(esp32IP) esp32Post('/pomodoro/reset');
   renderPomo();
 }
 function savePomo(){
@@ -1832,6 +1913,7 @@ function savePomo(){
   clearInterval(pomoState.handle); pomoState.running=false; pomoState.mode='focus'; pomoState.remaining=f*60; pomoState.sessions=0;
   closePdfReaderOnBreakEnd(); hideBreakPrompt();
   if(_preloadedPdf){ URL.revokeObjectURL(_preloadedPdf.url); _preloadedPdf=null; }
+  esp32PushPomoConfig();
   renderPomo(); toast('Pomodoro settings saved');
 }
 
@@ -2059,6 +2141,9 @@ function initApp(){
   const pf=document.getElementById('pomoFocus'),pb=document.getElementById('pomoBreak');
   if(pf) pf.value=pomoSettings.focus||25;
   if(pb) pb.value=pomoSettings.brk||5;
+  const ei=document.getElementById('esp32IpInput');
+  if(ei) ei.value=esp32IP;
+  renderEsp32Status();
   pomoInit();
 }
 
